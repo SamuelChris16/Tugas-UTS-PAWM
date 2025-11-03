@@ -1,55 +1,88 @@
-/* Reset dasar */
+/* Reset dan dasar */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
+html, body {
+  height: 100%;
+  width: 100%;
   font-family: 'Poppins', sans-serif;
-  color: white;
   background-color: #0b022d;
-  height: 100vh;
   overflow: hidden;
+  color: white;
 }
 
-/* Splash Screen */
+/* ===== SPLASH SCREEN ===== */
 #splash-screen {
   position: fixed;
-  inset: 0;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #0b022d;
-  z-index: 9999;
-  animation: fadeOut 2.5s ease forwards;
-  animation-delay: 2.5s; /* 2.5 detik sebelum hilang */
+  background-image: url('assets/SplashScreen.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 10;
+  opacity: 1;
+  transition: opacity 1s ease-out;
 }
 
 .splash-image {
-  width: 70%;
-  max-width: 700px;
-  object-fit: contain;
-}
-
-/* Konten utama (disembunyikan dulu) */
-#main-content {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.8s ease;
-  text-align: center;
-  padding: 100px 20px;
-}
-
-/* Logo kecil di halaman utama */
-.app-logo {
-  width: 80px;
+  width: 50%;
+  max-width: 500px;
   margin-bottom: 20px;
 }
 
-/* Animasi hilang untuk splash screen */
-@keyframes fadeOut {
-  0% { opacity: 1; }
-  90% { opacity: 0; }
-  100% { opacity: 0; visibility: hidden; }
+.splash-text h1 {
+  font-size: 2rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: #ffffff;
+  text-shadow: 0 0 20px #00f6ff;
+}
+
+.splash-text p {
+  font-size: 1rem;
+  color: #b8c0ff;
+}
+
+/* ===== APP PAGE ===== */
+#app-page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.8s ease;
+}
+
+.app-icon {
+  width: 120px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 10px #00f6ff);
+}
+
+#app-page.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Tambahan animasi fade-in awal */
+.fade-in {
+  animation: fadeIn 1.2s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }

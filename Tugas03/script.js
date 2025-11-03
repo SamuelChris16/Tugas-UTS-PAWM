@@ -1,9 +1,15 @@
 window.addEventListener('load', () => {
-  // Delay sedikit untuk simulasi loading
+  const splash = document.getElementById('splash-screen');
+  const appPage = document.getElementById('app-page');
+
+  // Splash tampil selama 5 detik
   setTimeout(() => {
-    document.getElementById('splash-screen').style.display = 'none';
-    const main = document.getElementById('main-content');
-    main.style.opacity = '1';
-    main.style.transform = 'translateY(0)';
-  }, 5000); // splash muncul selama 3 detik
+    splash.style.opacity = '0';
+
+    // Setelah fade-out selesai, sembunyikan dan tampilkan app icon
+    setTimeout(() => {
+      splash.style.display = 'none';
+      appPage.classList.add('visible');
+    }, 1000); // durasi fade-out = 1 detik
+  }, 5000); // tampil selama 5 detik
 });

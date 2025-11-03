@@ -1,93 +1,66 @@
-/* Reset dasar */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* GENERAL RESET */
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;width:100%;font-family:"Poppins",sans-serif}
+
+/* ===== SPLASH FULL PAGE ===== */
+#splash-screen{
+  position:fixed;
+  top:0;left:0;
+  width:100vw;height:100vh;
+  background:linear-gradient(135deg,#0b022d 0%,#1f0f60 100%);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  color:#fff;
+  z-index:100;
+  opacity:1;
+  transition:opacity 1s ease-out;
 }
 
-html, body {
-  height: 100%;
-  width: 100%;
-  font-family: 'Poppins', sans-serif;
-  background-color: #0b022d;
-  color: white;
-  overflow: hidden;
+.splash-content img{
+  width:180px;
+  margin-bottom:20px;
+  filter:drop-shadow(0 0 15px #00f6ff);
 }
 
-/* ===== SPLASH SCREEN ===== */
-#splash-screen {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #0b022d; /* latar polos metaverse */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  z-index: 10;
-  transition: opacity 1s ease-out;
+.splash-content h1{
+  font-size:1.8rem;
+  margin-bottom:6px;
+  text-shadow:0 0 12px #00f6ff;
+  text-align:center;
 }
 
-.splash-logo {
-  width: 180px;
-  max-width: 50%;
-  margin-bottom: 20px;
-  filter: drop-shadow(0 0 15px #00f6ff);
-}
-
-.splash-title {
-  font-size: 1.8rem;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
-  text-shadow: 0 0 10px #00f6ff;
-}
-
-.splash-subtitle {
-  font-size: 1rem;
-  color: #c7d2fe;
+.splash-content p{
+  font-size:1rem;
+  color:#c8d1ff;
+  text-align:center;
 }
 
 /* ===== MAIN PAGE ===== */
-#app-page {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.8s ease;
+#main-page{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  opacity:0;
+  transform:scale(0.95);
+  transition:opacity 0.8s ease,transform 0.8s ease;
 }
 
-#app-page.visible {
-  opacity: 1;
-  transform: translateY(0);
+#main-page.show{
+  opacity:1;
+  transform:scale(1);
 }
 
-.app-icon {
-  width: 100px;
-  margin-bottom: 15px;
-  filter: drop-shadow(0 0 10px #00f6ff);
+.app-icon{
+  width:120px;
+  margin-bottom:20px;
+  filter:drop-shadow(0 0 10px #00f6ff);
 }
 
-#app-page h2 {
-  margin-bottom: 8px;
-  color: #ffffff;
-}
-
-#app-page p {
-  color: #b3b3b3;
-}
-
-/* Animasi halus muncul di awal */
-.fade-in {
-  animation: fadeIn 1.5s ease forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
+#main-page h2{color:#fff;margin-bottom:8px}
+#main-page p{color:#b3b3b3}
+body{background-color:#0b022d;color:#fff}

@@ -1,15 +1,13 @@
-window.addEventListener('load', () => {
-  const splash = document.getElementById('splash-screen');
-  const appPage = document.getElementById('app-page');
+window.addEventListener("load", () => {
+  const splash = document.getElementById("splash-screen");
+  const main = document.getElementById("main-page");
 
-  // Splash tampil selama 5 detik
+  // tampil 5 detik penuh
   setTimeout(() => {
-    splash.style.opacity = '0';
-
-    // Setelah fade-out selesai, sembunyikan dan tampilkan app icon
+    splash.style.opacity = "0";          // fade out
     setTimeout(() => {
-      splash.style.display = 'none';
-      appPage.classList.add('visible');
-    }, 1000); // durasi fade-out = 1 detik
-  }, 5000); // tampil selama 5 detik
+      splash.style.display = "none";     // hilangkan total
+      main.classList.add("show");        // tampilkan halaman utama
+    }, 1000); // setelah fade out selesai
+  }, 5000); // durasi splash = 5 detik
 });

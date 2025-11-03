@@ -1,22 +1,13 @@
-window.addEventListener('DOMContentLoaded', () => {
-  const splash = document.getElementById('splash-screen');
-  const app = document.getElementById('app-page');
+window.addEventListener("load", () => {
+  const splash = document.getElementById("splash-screen");
+  const appPage = document.getElementById("app-page");
 
-  // Pastikan background terpasang (jika Anda ingin fallback dari <img>)
-  const splashImg = splash.querySelector('img');
-  if (splashImg && !getComputedStyle(splash).backgroundImage.includes('url')) {
-    splash.style.backgroundImage = `url('${splashImg.src}')`;
-    splashImg.style.display = 'none';
-  }
-
-  // Tampilkan app icon setelah 5 detik
+  // Splash tampil selama 5 detik
   setTimeout(() => {
-    splash.classList.add('hidden');
-    app.classList.add('visible');
-
-    // optional: hapus node splash setelah transisi selesai
-    splash.addEventListener('transitionend', () => {
-      if (splash.parentNode) splash.parentNode.removeChild(splash);
-    }, { once: true });
-  }, 5000);
+    splash.style.opacity = "0"; // fade-out
+    setTimeout(() => {
+      splash.style.display = "none"; // sembunyikan splash
+      appPage.style.opacity = "1";   // tampilkan app icon
+    }, 1000); // tunggu animasi fade selesai
+  }, 5000); // durasi splash: 5 detik
 });

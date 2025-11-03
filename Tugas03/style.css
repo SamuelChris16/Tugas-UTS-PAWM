@@ -1,4 +1,4 @@
-/* Reset dan dasar */
+/* Reset dasar */
 * {
   margin: 0;
   padding: 0;
@@ -10,8 +10,8 @@ html, body {
   width: 100%;
   font-family: 'Poppins', sans-serif;
   background-color: #0b022d;
-  overflow: hidden;
   color: white;
+  overflow: hidden;
 }
 
 /* ===== SPLASH SCREEN ===== */
@@ -20,40 +20,36 @@ html, body {
   top: 0; left: 0;
   width: 100%;
   height: 100%;
+  background-color: #0b022d; /* latar polos metaverse */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #0b022d;
-  background-image: url('assets/SplashScreen.png');
-  background-size: cover;
-  background-position: center;
+  text-align: center;
   z-index: 10;
-  opacity: 1;
   transition: opacity 1s ease-out;
 }
 
-.splash-image {
-  width: 50%;
-  max-width: 500px;
+.splash-logo {
+  width: 180px;
+  max-width: 50%;
   margin-bottom: 20px;
+  filter: drop-shadow(0 0 15px #00f6ff);
 }
 
-.splash-text h1 {
-  font-size: 2rem;
+.splash-title {
+  font-size: 1.8rem;
   letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  color: #ffffff;
-  text-shadow: 0 0 20px #00f6ff;
+  margin-bottom: 8px;
+  text-shadow: 0 0 10px #00f6ff;
 }
 
-.splash-text p {
+.splash-subtitle {
   font-size: 1rem;
-  color: #b8c0ff;
+  color: #c7d2fe;
 }
 
-/* ===== APP PAGE ===== */
+/* ===== MAIN PAGE ===== */
 #app-page {
   position: absolute;
   inset: 0;
@@ -62,27 +58,36 @@ html, body {
   justify-content: center;
   align-items: center;
   opacity: 0;
-  transform: scale(0.9);
+  transform: translateY(20px);
   transition: all 0.8s ease;
-}
-
-.app-icon {
-  width: 120px;
-  margin-bottom: 20px;
-  filter: drop-shadow(0 0 10px #00f6ff);
 }
 
 #app-page.visible {
   opacity: 1;
-  transform: scale(1);
+  transform: translateY(0);
 }
 
-/* Tambahan animasi fade-in awal */
+.app-icon {
+  width: 100px;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 10px #00f6ff);
+}
+
+#app-page h2 {
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+#app-page p {
+  color: #b3b3b3;
+}
+
+/* Animasi halus muncul di awal */
 .fade-in {
-  animation: fadeIn 1.2s ease-in forwards;
+  animation: fadeIn 1.5s ease forwards;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
+  from { opacity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1); }
 }

@@ -1,0 +1,55 @@
+/* Reset dasar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  background-color: #0b022d;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Splash Screen */
+#splash-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0b022d;
+  z-index: 9999;
+  animation: fadeOut 2.5s ease forwards;
+  animation-delay: 2.5s; /* 2.5 detik sebelum hilang */
+}
+
+.splash-image {
+  width: 70%;
+  max-width: 700px;
+  object-fit: contain;
+}
+
+/* Konten utama (disembunyikan dulu) */
+#main-content {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease;
+  text-align: center;
+  padding: 100px 20px;
+}
+
+/* Logo kecil di halaman utama */
+.app-logo {
+  width: 80px;
+  margin-bottom: 20px;
+}
+
+/* Animasi hilang untuk splash screen */
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  90% { opacity: 0; }
+  100% { opacity: 0; visibility: hidden; }
+}

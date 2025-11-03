@@ -5,5 +5,5 @@ window.addEventListener('load', () => {
     const main = document.getElementById('main-content');
     main.style.opacity = '1';
     main.style.transform = 'translateY(0)';
-  }, 3000); // splash muncul selama 3 detik
+  }, 5000); // splash muncul selama 3 detik
 });

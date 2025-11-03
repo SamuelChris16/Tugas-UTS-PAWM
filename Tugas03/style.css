@@ -1,66 +1,56 @@
-/* GENERAL RESET */
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;width:100%;font-family:"Poppins",sans-serif}
-
-/* ===== SPLASH FULL PAGE ===== */
-#splash-screen{
-  position:fixed;
-  top:0;left:0;
-  width:100vw;height:100vh;
-  background:linear-gradient(135deg,#0b022d 0%,#1f0f60 100%);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  color:#fff;
-  z-index:100;
-  opacity:1;
-  transition:opacity 1s ease-out;
+/* Reset dasar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.splash-content img{
-  width:180px;
-  margin-bottom:20px;
-  filter:drop-shadow(0 0 15px #00f6ff);
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: #000;
+  overflow: hidden;
 }
 
-.splash-content h1{
-  font-size:1.8rem;
-  margin-bottom:6px;
-  text-shadow:0 0 12px #00f6ff;
-  text-align:center;
+/* Splash Screen penuh layar */
+#splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  opacity: 1;
+  transition: opacity 1s ease;
 }
 
-.splash-content p{
-  font-size:1rem;
-  color:#c8d1ff;
-  text-align:center;
+.full-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* ===== MAIN PAGE ===== */
-#main-page{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  opacity:0;
-  transform:scale(0.95);
-  transition:opacity 0.8s ease,transform 0.8s ease;
+/* Halaman App Icon (disembunyikan dulu) */
+#app-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 1s ease;
 }
 
-#main-page.show{
-  opacity:1;
-  transform:scale(1);
+.app-icon {
+  width: 200px;
+  height: auto;
+  filter: drop-shadow(0 0 20px #00f6ff);
 }
-
-.app-icon{
-  width:120px;
-  margin-bottom:20px;
-  filter:drop-shadow(0 0 10px #00f6ff);
-}
-
-#main-page h2{color:#fff;margin-bottom:8px}
-#main-page p{color:#b3b3b3}
-body{background-color:#0b022d;color:#fff}

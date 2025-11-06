@@ -12,7 +12,7 @@
       <img src="../assets/LogoLab.png" alt="Logo Metaverse Lab" class="logo">
       <form id="registerForm">
         <label for="username">USERNAME</label>
-        <input type="text" id="username" placeholder="Samuel Simanjuntak" required>
+        <input type="text" id="username" placeholder="Your Name" required>
 
         <label for="email">EMAIL</label>
         <input type="email" id="email" placeholder="******@gmail.com" required>
@@ -21,7 +21,13 @@
         <input type="password" id="password" placeholder="********" required>
 
         <label for="phone">PHONE NUMBER</label>
-        <input type="tel" id="phone" placeholder="081293456622" required>
+        <input type="tel" id="phone" placeholder="..." required>
+
+        <!-- added: Already Registered + clickable Login -->
+        <div class="already-registered">
+          <span>Already Registered?</span>
+          <a class="login-link" href="../Login/index.html">Login</a>
+        </div>
 
         <button type="submit" id="registerBtn">Register</button>
       </form>

@@ -89,7 +89,7 @@ button {
   padding: 12px;
   font-size: 18px;
   font-weight: 600;
-  color: #1A1A1A;
+  color: #47367A;
   cursor: pointer;
   transition: background 0.3s;
 }
@@ -118,4 +118,27 @@ button:hover {
   .mascot {
     display: none;
   }
+}
+
+.already-registered{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 14px; /* jarak atas/bawah */
+  color: #ffffff;
+  font-size: 14px;
+  width: 100%;
+}
+
+/* link ke halaman Login */
+.login-link{
+  color: #ffffff; /* sesuai warna tombol */
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.login-link:hover{
+  text-decoration: underline;
 }

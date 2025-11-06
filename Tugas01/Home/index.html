@@ -17,23 +17,23 @@
       <ul class="nav-links">
         <li><a href="#hero">Home</a></li>
         <li><a href="#event">Event</a></li>
-        <li><a href="#facility">Facility</a></li>
-        <li><a href="#organization">Organization</a></li>
-        <li><a href="#project">Project</a></li>
-        <li><a href="../login/login.html" class="login-btn">Login</a></li>
-        <li><a href="../register/register.html" class="register-btn">Register</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="../login/index.html" class="login-btn">Login</a></li>
+        <li><a href="../register/index.html" class="register-btn">Register</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- HERO -->
+  <!-- HERO SECTION -->
   <section id="hero" class="hero">
-    <div class="hero-text">
-      <h1>HELLO WORLD! <br><span>I'M ROGA, YOUR ASSISTANT!</span></h1>
-      <p>I’ll assist you throughout your journey inside the Metaverse Lab.</p>
-    </div>
-    <div class="hero-image">
-      <img src="../assets/rogaHALO.png" alt="Roga">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <img src="../assets/Perkenalan.png" alt="Hello I'm Roga" class="hero-text-img">
+      </div>
+      <div class="hero-image">
+        <img src="../assets/RogaHALO.png" alt="Roga">
+      </div>
     </div>
   </section>
 
@@ -50,15 +50,45 @@
   <!-- VISI & MISI -->
   <section class="vision-mission">
     <div class="visi">
-      <h2>VISI</h2>
+      <img src="../assets/VISI.png" alt="Visi" class="visi-img">
       <p>Empowering innovation through immersive technologies that connect people, ideas, and realities.</p>
     </div>
     <div class="misi">
-      <h2>MISI</h2>
+      <img src="../assets/MISI.png" alt="Misi" class="misi-img">
       <p>Exploring, developing, and applying metaverse technologies to enhance education, research, and collaboration at ITB and beyond.</p>
     </div>
   </section>
 
   <!-- EVENT -->
-  <section id="event" class="cards">
-    <div class="c
+  <section id="event" class="carousel-section">
+    <h2>Event</h2>
+    <div class="carousel-container">
+      <div class="carousel-track" id="eventTrack">
+        <div class="card"><div class="card-img"></div><div class="card-body"><h3>Event 1</h3><p>26 Sept 2025 - Aula Barat</p><button class="register-btn-card">Register Now</button></div></div>
+        <div class="card"><div class="card-img"></div><div class="card-body"><h3>Event 2</h3><p>10 Okt 2025 - Aula Timur</p><button class="register-btn-card">Register Now</button></div></div>
+        <div class="card"><div class="card-img"></div><div class="card-body"><h3>Event 3</h3><p>20 Nov 2025 - Aula Barat</p><button class="register-btn-card">Register Now</button></div></div>
+      </div>
+      <div class="carousel-arrow" id="eventNext">≫ SEE MORE</div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section id="tools" class="carousel-section">
+    <h2>Tools</h2>
+    <div class="carousel-container">
+      <div class="carousel-track" id="toolsTrack">
+        <div class="card"><div class="card-img"></div><div class="card-body"><h3>Tool 1</h3><p>Qty: 5</p><button class="book-btn-card">Book Now</button></div></div>
+        <div class="card"><div class="card-img"></div><div class="card-body"><h3>Tool 2</h3><p>Qty: 10</p><button class="book-btn-card">Book Now</button></div></div>
+        <div class="card"><div class="card-img"></div><div class="card-body"><h3>Tool 3</h3><p>Qty: 3</p><button class="book-btn-card">Book Now</button></div></div>
+      </div>
+      <div class="carousel-arrow" id="toolsNext">≫ SEE MORE</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Metaverse Lab ITB</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

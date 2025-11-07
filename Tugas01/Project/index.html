@@ -22,9 +22,20 @@
       <li><a href="index.html" class="active">Project</a></li> </ul>
   </nav>
   <div class="nav-auth">
-    <a href="../Login/index.html" class="login-btn">LOGIN</a>
-    <a href="../Register/index.html" class="register-btn">REGISTER</a>
-    <a href="#" class="settings-btn"><i class="fa-solid fa-gear"></i></a>
+    <a href="../Login/index.html" class="login-btn" id="loginBtn">LOGIN</a>
+    <a href="../Register/index.html" class="register-btn" id="registerBtn">REGISTER</a>
+    
+    <div class="user-profile hidden" id="userProfileContainer">
+      <a href="#" class="profile-link">
+        <span id="userNameDisplay">User</span>
+        <i class="fa-solid fa-user-circle"></i> 
+      </a>
+      <a href="#" class="logout-btn" id="logoutBtn">
+        <i class="fa-solid fa-sign-out-alt"></i> Logout
+      </a>
+    </div>
+    
+    <a href="#" class="settings-btn hidden"><i class="fa-solid fa-gear"></i></a>
   </div>
 </header>
 
@@ -60,7 +71,7 @@
       </div>
 
       <div class="project-card">
-        <div class="card-img" style="background-image: url('https://plus.unsplash.com/premium_photo-1679865289381-3b7c28c866d6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400');"></div>
+        <div class="card-img" style="background-image: url('https://www.historytoday.com/sites/default/files/history-matters/archaeology.jpg');"></div>
         <div class="card-body">
           <h5>Historical Site Reconstruction</h5>
           <div class="description-box">
@@ -82,7 +93,7 @@
       </div>
 
       <div class="project-card">
-        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-15274302392E1-60a58WA480c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400');"></div>
+        <div class="card-img" style="background-image: url('https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd4bf27cf-0ec5-452e-9654-5c44639c88d1_2218x1244.png');"></div>
         <div class="card-body">
           <h5>AI-Driven NPC Interaction</h5>
           <div class="description-box">

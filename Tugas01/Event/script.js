@@ -1,4 +1,44 @@
 document.addEventListener("DOMContentLoaded", () => {
+  
+  // === FUNGSI UNIVERSAL CEK & TAMPILKAN STATUS LOGIN ===
+  function checkLoginStatus() {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    
+    // Ambil elemen-elemen navbar
+    const loginBtn = document.getElementById("loginBtn");
+    const registerBtn = document.getElementById("registerBtn");
+    const userProfileContainer = document.getElementById("userProfileContainer");
+    const userNameDisplay = document.getElementById("userNameDisplay");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (loggedInUser) {
+      // User sudah login
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (registerBtn) registerBtn.style.display = 'none';
+      if (userProfileContainer) userProfileContainer.classList.remove('hidden');
+      if (userNameDisplay) userNameDisplay.textContent = loggedInUser.username;
+      
+      // Tambahkan event listener untuk Logout
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          localStorage.removeItem("loggedInUser"); // Hapus data login
+          alert("Anda telah berhasil keluar (Logout).");
+          // Redirect ke Home
+          window.location.href = "../Home/index.html"; 
+        });
+      }
+    } else {
+      // User belum login
+      if (loginBtn) loginBtn.style.display = 'block';
+      if (registerBtn) registerBtn.style.display = 'block';
+      if (userProfileContainer) userProfileContainer.classList.add('hidden');
+    }
+  }
+
+  // Panggil fungsi cek status di awal pemuatan halaman (WAJIB)
+  checkLoginStatus();
+
   // === DATA SIMULASI (Database Event) ===
   const allEvents = [
     {
@@ -29,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
       date: "2025-12-10",
       location: "Aula Barat",
       category: "yearly",
-      img: "https://images.unsplash.com/photo-1540553016722-983e48a2cd10?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNTA5OHwwfDF8c2VhcmNofDV8fHRlY2glMjBjb25mZXJlbmNlfGVufDB8fHx8MTcyMDc0MjQ0N3ww&ixlib=rb-4.0.3&q=80&w=400",
+      img: "https://images.unsplash.com/photo-1540553016722-983e48a2cd10?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNTA5OHwwfDF8c2VhcmNofDV8fHRlY2hlJTIBjb25mZXJlbmNlfGVufDB8fHx8MTcyMDc0MjQ0N3ww&ixlib=rb-4.0.3&q=80&w=400",
       tag: "Popular"
     },
     {
@@ -186,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // 2. Ambil tombol Register (BARU)
       const registerButton = card.querySelector(".btn-register");
       registerButton.addEventListener("click", () => {
-        // Arahkan ke halaman registrasi baru
+        // Arahkan ke halaman registrasi baru (akan diproteksi di EventDetail/script.js)
         window.location.href = `../EventRegister/index.html?event=${encodeURIComponent(event.name)}`;
       });
     });

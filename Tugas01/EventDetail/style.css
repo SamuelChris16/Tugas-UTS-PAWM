@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display.swap');
+
+/* === VARIABLE WARNA (dari style.css Event Anda) === */
+:root {
+  --color-bg: #1B162C;
+  --color-primary: #8A76C8; /* Ungu Primer */
+  --color-primary-light: #4A406D; /* Background Input */
+  --color-card-bg: #2A214D; /* Background Kartu */
+  --color-text: #FFFFFF;
+  --color-text-muted: #BFBFBF;
+}
+
+/* === RESET & BODY === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
+/* === NAVBAR (Copy dari Event/style.css) === */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 60px;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-primary-light);
+}
+.logo img { width: 120px; }
+.nav-links { list-style: none; display: flex; gap: 30px; }
+.nav-links a { color: var(--color-text-muted); font-weight: 500; transition: 0.3s; padding-bottom: 5px; }
+.nav-links a:hover,
+.nav-links a.active { color: var(--color-text); font-weight: 600; border-bottom: 3px solid var(--color-primary); }
+.nav-auth { display: flex; align-items: center; gap: 15px; }
+.nav-auth .login-btn { color: var(--color-text); font-weight: 600; }
+.nav-auth .register-btn { background-color: var(--color-primary); padding: 10px 20px; border-radius: 30px; font-weight: 700; transition: 0.3s; }
+.nav-auth .register-btn:hover { background-color: #A998E0; }
+.nav-auth .settings-btn { font-size: 1.5rem; color: var(--color-text); }
+/* === BATAS NAVBAR === */
+
+
+/* === KONTEN DETAIL EVENT === */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* Header Gambar Event */
+.event-header {
+  width: 100%;
+  height: 350px;
+  background-color: var(--color-primary-light); /* Placeholder */
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+  margin-bottom: 25px;
+}
+
+/* Bar Judul & Register */
+.event-title-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.event-info h1 { font-size: 2rem; font-weight: 700; color: var(--color-text); }
+.event-info p { font-size: 1.1rem; color: var(--color-text-muted); }
+.register-now-btn {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: 0.3s;
+}
+.register-now-btn:hover { background-color: #A998E0; }
+
+/* Konten (Deskripsi, Speaker, Sponsor) */
+.event-content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+.event-content p {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* Grid Speaker & Sponsor */
+.speaker-grid, .sponsor-grid {
+  display: grid;
+  gap: 25px;
+}
+.speaker-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.sponsor-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+.speaker-card, .sponsor-card {
+  background-color: var(--color-card-bg); /* Sesuai screenshot */
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid var(--color-primary-light);
+}
+
+.speaker-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* Lingkaran */
+  background-color: var(--color-primary-light);
+  margin: 0 auto 15px auto;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid var(--color-primary);
+}
+
+.sponsor-photo {
+  width: 100%;
+  height: 120px;
+  border-radius: 8px; /* Kotak */
+  background-color: var(--color-primary-light);
+  margin: 0 auto 15px auto;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 2px solid var(--color-primary-light);
+}
+
+.speaker-card h5, .sponsor-card h5 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.speaker-card p, .sponsor-card p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+/* === FOOTER === */
+.page-footer {
+  text-align: center;
+  padding: 40px 20px;
+  margin-top: 50px;
+  border-top: 1px solid var(--color-primary-light);
+  color: var(--color-text-muted);
+}
+.page-footer p { max-width: 800px; margin: 0 auto 25px auto; line-height: 1.6; }
+.social-icons { display: flex; justify-content: center; gap: 25px; }
+.social-icons a { font-size: 1.5rem; color: var(--color-text-muted); transition: 0.3s; }
+.social-icons a:hover { color: var(--color-primary); }

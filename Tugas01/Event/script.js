@@ -174,6 +174,19 @@ document.addEventListener("DOMContentLoaded", () => {
       // --- BATAS PERBAIKAN ---
       
       eventGrid.appendChild(card);
+
+      // ==========================================================
+      // === KODE TAMBAHAN SAYA ADA DI SINI ===
+      // ==========================================================
+      const detailsButton = card.querySelector(".btn-details");
+      
+      detailsButton.addEventListener("click", () => {
+        // Arahkan ke halaman detail, kirim nama event sebagai parameter URL
+        window.location.href = `../EventDetail/index.html?event=${encodeURIComponent(event.name)}`;
+      });
+      // ==========================================================
+      // === BATAS KODE TAMBAHAN ===
+      // ==========================================================
     });
   }
 

@@ -1,44 +1,39 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // --- LOGIKA UNTUK TOMBOL EVENT ---
-  
-  // 1. Tombol "Details" Event
-  document.querySelectorAll(".event-detail").forEach(button => {
-    button.addEventListener("click", (e) => {
-      const eventName = e.target.dataset.eventName;
+  // --- LOGIKA UNTUK KARTU EVENT (BARU) ---
+  // Membuat seluruh kartu event bisa diklik
+  document.querySelectorAll(".event-card").forEach(card => {
+    card.addEventListener("click", () => {
+      const eventName = card.dataset.eventName;
       if (eventName) {
+        // Arahkan ke halaman EventDetail
         window.location.href = `../EventDetail/index.html?event=${encodeURIComponent(eventName)}`;
       }
     });
   });
 
-  // 2. Tombol "Register" Event
-  document.querySelectorAll(".event-register").forEach(button => {
-    button.addEventListener("click", (e) => {
-      const eventName = e.target.dataset.eventName;
-      if (eventName) {
-        window.location.href = `../EventRegister/index.html?event=${encodeURIComponent(eventName)}`;
-      }
-    });
-  });
+  // --- LOGIKA UNTUK TOMBOL TOOLS (Sama seperti sebelumnya) ---
 
-  // --- LOGIKA UNTUK TOMBOL TOOLS ---
-
-  // 3. Tombol "Details" Tools
+  // 1. Tombol "Details" Tools
   document.querySelectorAll(".tool-detail").forEach(button => {
     button.addEventListener("click", (e) => {
+      // Menghentikan event 'click' agar tidak 'bubble up' ke kartu
+      e.stopPropagation(); 
+      
       const toolName = e.target.dataset.toolName;
       if (toolName) {
-        // Asumsi halaman detail tool akan dibuat nanti
-        // window.location.href = `../ToolDetail/index.html?tool=${encodeURIComponent(toolName)}`;
-        alert(`Navigasi ke Detail untuk: ${toolName}`); // Placeholder
+        // Arahkan ke halaman ToolDetail
+        window.location.href = `../ToolDetail/index.html?tool=${encodeURIComponent(toolName)}`;
       }
     });
   });
 
-  // 4. Tombol "Book Now" Tools
+  // 2. Tombol "Book Now" Tools
   document.querySelectorAll(".tool-book").forEach(button => {
     button.addEventListener("click", (e) => {
+      // Menghentikan event 'click' agar tidak 'bubble up' ke kartu
+      e.stopPropagation(); 
+      
       const toolName = e.target.dataset.toolName;
       if (toolName) {
         window.location.href = `../ToolBooking/index.html?tool=${encodeURIComponent(toolName)}`;

@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display.swap');
 
-/* === VARIABLE WARNA (dari Screenshot & Event/style.css) === */
+/* === VARIABLE WARNA (standar) === */
 :root {
   --color-bg: #1B162C;
   --color-primary: #8A76C8; /* Ungu Primer */
@@ -10,7 +10,7 @@
   --color-text-muted: #BFBFBF;
 }
 
-/* === RESET & BODY === */
+/* === RESET & BODY (standar) === */
 * {
   margin: 0;
   padding: 0;
@@ -27,7 +27,7 @@ body {
 a { text-decoration: none; color: inherit; }
 button { font-family: 'Poppins', sans-serif; cursor: pointer; }
 
-/* === NAVBAR (Sama seperti Event/style.css) === */
+/* === NAVBAR (standar) === */
 .navbar {
   display: flex;
   align-items: center;
@@ -87,27 +87,32 @@ button { font-family: 'Poppins', sans-serif; cursor: pointer; }
 .category-btn:hover { background: var(--color-primary-light); }
 .category-btn.active { background: var(--color-primary); font-weight: 600; border-color: var(--color-primary); }
 
-/* === Tool Grid (BARU) === */
+/* === Tool Grid (DIPERBARUI) === */
 .tool-grid {
   flex-basis: 80%;
   display: grid;
-  /* 3 Kolom sesuai screenshot */
   grid-template-columns: repeat(3, 1fr); 
   gap: 25px;
 }
 
 .tool-card {
-  background: var(--color-card-bg);
+  background: var(--color-card-bg); /* Latar belakang ungu */
   border-radius: 15px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--color-primary-light);
+  transition: transform 0.3s ease;
+}
+.tool-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(138, 118, 200, 0.1);
 }
 
 .card-img {
   width: 100%;
   height: 180px;
-  background-color: #D9D9D9; /* Placeholder jika gambar tdk ada */
+  background-color: #D9D9D9; 
   background-size: cover;
   background-position: center;
 }
@@ -116,26 +121,49 @@ button { font-family: 'Poppins', sans-serif; cursor: pointer; }
   padding: 20px;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  flex-grow: 1; /* PENTING: Bikin kartu sama tinggi */
 }
 
 .card-body h4 {
   font-size: 1.3rem;
   margin-bottom: 10px;
+  color: var(--color-text);
+  line-height: 1.3;
+  height: 2.6em; /* Batasi 2 baris */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Style untuk 'Quantity' */
-.card-body p.card-quantity {
-  font-size: 0.95rem;
+/* === STYLE BARU UNTUK DESKRIPSI === */
+.card-description {
+  font-size: 0.9rem;
   color: var(--color-text-muted);
-  margin-bottom: 15px;
-  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  height: 4.5em; /* Batasi 3 baris */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+/* Style untuk 'Quantity' (DIPERBARUI) */
+p.card-quantity {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 15px;
+}
+
+/* Grup Tombol (DIPERBARUI) */
 .card-buttons {
   display: flex;
   gap: 10px;
-  margin-top: auto;
+  margin-top: auto; /* PENTING: Dorong tombol ke bawah */
 }
 
 .card-buttons button {
@@ -145,6 +173,8 @@ button { font-family: 'Poppins', sans-serif; cursor: pointer; }
   font-size: 0.95rem;
   font-weight: 600;
   border: none;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .btn-details {
@@ -159,3 +189,32 @@ button { font-family: 'Poppins', sans-serif; cursor: pointer; }
 
 .btn-details:hover { background-color: #5C5282; }
 .btn-book:hover { background-color: #A998E0; }
+
+/* === RESPONSIVE (BARU) === */
+@media (max-width: 1200px) {
+  .tool-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 kolom di tablet */
+  }
+}
+
+@media (max-width: 768px) {
+  .content-area {
+    flex-direction: column; /* Tumpuk sidebar & grid */
+  }
+  .category-sidebar {
+    flex-basis: 100%;
+    flex-direction: row; /* Buat sidebar jadi horizontal */
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .category-sidebar h3 {
+    width: 100%;
+  }
+  .category-btn {
+    flex-grow: 1;
+  }
+  .tool-grid {
+    grid-template-columns: 1fr; /* 1 kolom di mobile */
+    flex-basis: 100%;
+  }
+}

@@ -20,7 +20,7 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: var(--color-bg); /* <-- Latar belakang ungu tua standar */
+  background-color: var(--color-bg); 
   color: white;
   overflow-x: hidden;
 }
@@ -36,10 +36,8 @@ a {
   align-items: center;
   justify-content: space-between;
   padding: 10px 60px;
-  background: var(--color-bg); /* <-- Background solid ungu tua */
+  background: var(--color-bg); 
   border-bottom: 1px solid var(--color-primary-light);
-  
-  /* Navbar menempel di atas */
   position: sticky; 
   top: 0;
   width: 100%;
@@ -61,7 +59,7 @@ a {
 /* === HERO SECTION === */
 .hero {
   position: relative;
-  height: 90vh; /* Sedikit lebih pendek agar tidak full 100% */
+  height: 90vh; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,7 +76,7 @@ a {
   width: 100%;
   height: 100%;
   z-index: -1;
-  opacity: 0.5; /* Sedikit lebih redup agar Roga menonjol */
+  opacity: 0.5; 
 }
 
 .hero-content {
@@ -99,7 +97,7 @@ a {
 
 .hero-text-img {
   width: 100%;
-  max-width: 500px; /* atur ukuran maksimum biar proporsional */
+  max-width: 500px; 
   height: auto;
   display: block;
 }
@@ -107,7 +105,7 @@ a {
 .hero-image img {
   width: 550px;
   transform: translateY(20px);
-  filter: drop-shadow(0 10px 30px rgba(0, 246, 255, 0.2)); /* Bayangan Roga */
+  filter: drop-shadow(0 10px 30px rgba(0, 246, 255, 0.2)); 
 }
 
 /* === ABOUT === */
@@ -144,7 +142,7 @@ a {
   line-height: 1.6;
 }
 
-/* === BAGIAN KARTU PREVIEW (Perubahan di sini) === */
+/* === BAGIAN KARTU PREVIEW (ROMBAKAN TOTAL) === */
 .preview-section {
   padding: 60px 120px;
   position: relative;
@@ -173,22 +171,17 @@ a {
 .card-container {
   display: grid;
   gap: 30px;
-}
-.event-container {
-  grid-template-columns: repeat(2, 1fr); /* 2 kolom untuk Event */
-}
-.tools-container {
-  grid-template-columns: repeat(3, 1fr); /* 3 kolom untuk Tools */
+  /* 3 Kolom untuk KEDUANYA (Event & Tools) */
+  grid-template-columns: repeat(3, 1fr); 
 }
 
+/* Style Kartu Umum (BARU) */
 .preview-card {
-  background: transparent;
-  border-radius: 15px;
+  background: var(--color-card-bg); /* <-- Latar belakang ungu */
+  border-radius: 12px; /* Sesuai screenshot */
   overflow: hidden;
-  border: 1px solid var(--color-primary-light);
   transition: transform 0.3s ease;
   
-  /* Tambahkan ini agar card-info bisa di-layout flex */
   display: flex;
   flex-direction: column; 
 }
@@ -202,44 +195,87 @@ a {
   background-color: #D9D9D9; /* Placeholder */
   background-size: cover;
   background-position: center;
+  position: relative; /* Untuk menampung .card-tag */
 }
 
-.preview-card .card-info {
-  background-color: var(--color-card-bg); 
+/* Style untuk Kartu Event (BARU) */
+.event-card {
+  cursor: pointer; /* Menandakan bisa diklik */
+}
+
+.card-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--color-primary);
+  color: var(--color-text);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.preview-card .card-body {
   padding: 20px;
-  text-align: center;
-  
-  /* Tambahkan ini agar tombol menempel di bawah */
   display: flex;
   flex-direction: column;
   flex-grow: 1; /* Memenuhi sisa ruang */
 }
 
-.preview-card .card-info p {
-  font-size: 0.95rem;
-  color: var(--color-text-muted);
-  margin-bottom: 15px;
-  line-height: 1.5;
-  min-height: 42px; /* Jaga tinggi agar tombol sejajar */
-  
-  /* Hapus margin-bottom agar tombol bisa menempel */
-  margin-bottom: 0; 
-  flex-grow: 1; /* Dorong tombol ke bawah */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.preview-card .card-body h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 10px; /* Jarak ke <p> */
+  line-height: 1.3;
+  height: 2.6em; /* Batasi 2 baris */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* === BAGIAN BARU UNTUK GRUP TOMBOL === */
+.preview-card .card-date {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Jarak ikon & teks */
+  margin-top: auto; /* Dorong ke bawah */
+  padding-top: 10px;
+}
+
+/* Style untuk Kartu Tools (BARU) */
+.card-description {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin-bottom: 10px;
+  height: 4.5em; /* Batasi 3 baris */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-quantity {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 15px;
+}
+
+/* Style Grup Tombol (Sama seperti sebelumnya) */
 .card-buttons {
   display: flex;
   gap: 10px;
-  margin-top: 15px; /* Jarak dari teks di atasnya */
+  margin-top: auto; /* <-- PENTING: Mendorong tombol ke bawah */
 }
 
-/* Tombol umum di dalam kartu */
 .card-buttons button {
-  flex-grow: 1; /* Bagi rata lebarnya */
+  flex-grow: 1; 
   padding: 12px;
   border-radius: 8px;
   font-size: 0.95rem;
@@ -249,7 +285,6 @@ a {
   transition: 0.3s;
 }
 
-/* Tombol "Details" (abu-abu/ungu muda) */
 .card-buttons .btn-details {
   background-color: var(--color-primary-light);
   color: var(--color-text);
@@ -258,7 +293,6 @@ a {
   background-color: #5C5282;
 }
 
-/* Tombol "Register/Book" (ungu primer) */
 .card-buttons .btn-primary {
   background-color: var(--color-primary);
   color: var(--color-text);
@@ -301,11 +335,9 @@ footer {
   .preview-section {
     padding: 40px 80px;
   }
-  .event-container {
-    grid-template-columns: 1fr; /* 1 kolom di tablet */
-  }
-  .tools-container {
-    grid-template-columns: repeat(2, 1fr); /* 2 kolom di tablet */
+  /* Ubah jadi 2 kolom di tablet */
+  .card-container {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -335,8 +367,9 @@ footer {
   .preview-section {
     padding: 40px;
   }
-  .tools-container {
-    grid-template-columns: 1fr; /* 1 kolom di mobile */
+  /* Ubah jadi 1 kolom di mobile */
+  .card-container {
+    grid-template-columns: 1fr;
   }
   .see-more {
     font-size: 0.9rem;

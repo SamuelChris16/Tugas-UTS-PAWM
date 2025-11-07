@@ -1,4 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Panggil fungsi navbar di sini juga (disarankan untuk konsistensi)
+  function checkLoginStatus() {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    const loginBtn = document.getElementById("loginBtn");
+    const registerBtn = document.getElementById("registerBtn");
+    const userProfileContainer = document.getElementById("userProfileContainer");
+    const userNameDisplay = document.getElementById("userNameDisplay");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (loggedInUser) {
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (registerBtn) registerBtn.style.display = 'none';
+      if (userProfileContainer) userProfileContainer.classList.remove('hidden');
+      if (userNameDisplay) userNameDisplay.textContent = loggedInUser.username;
+      
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          localStorage.removeItem("loggedInUser");
+          alert("Anda telah berhasil keluar (Logout).");
+          window.location.href = "../Home/index.html"; 
+        });
+      }
+    } else {
+      if (loginBtn) loginBtn.style.display = 'block';
+      if (registerBtn) registerBtn.style.display = 'block';
+      if (userProfileContainer) userProfileContainer.classList.add('hidden');
+    }
+  }
+  checkLoginStatus();
+
   // === DATABASE EVENT (VERSI LENGKAP & DENGAN GAMBAR ASLI) ===
   
   const allEvents = [
@@ -57,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
       date: "2025-12-10",
       location: "Aula Barat",
       category: "yearly",
-      img: "https://images.unsplash.com/photo-1540553016722-983e48a2cd10?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNTA5OHwwfDF8c2VhcmNofDV8fHRlY2glMjBjb25mZXJlbmNlfGVufDB8fHx8MTcyMDc0MjQ0N3ww&ixlib=rb-4.0.3&q=80&w=400",
+      img: "https://images.unsplash.com/photo-1540553016722-983e48a2cd10?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNTA5OHwwfDF8c2VhcmNofDV8fHRlY2hlJTIBjb25mZXJlbmNlfGVufDB8fHx8MTcyMDc0MjQ0N3ww&ixlib=rb-4.0.3&q=80&w=400",
       tag: "Popular",
       description: "Our biggest event of the year! Explore cutting-edge projects from our lab members, industry partners, and student groups. Experience live demos, network with creators, and see the future of metaverse tech.",
       speakers: [
@@ -76,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
       date: "2025-11-22",
       location: "Metaverse Lab",
       category: "weekly",
-      img: "https://live.static[flickr.com/65535/48146091897_2b9194bf03_b.jpg](http://flickr.com/65535/48146091897_2b9194bf03_b.jpg)",
+      img: "https://live.staticflickr.com/65535/48146091897_2b9194bf03_b.jpg",
       description: "Our casual weekly gathering for all lab members and enthusiasts. Bring your projects, share your challenges, and collaborate. This week's focus: Real-time physics in VR. Free pizza and drinks!",
       speakers: [
         { name: "Budi Santoso", expertise: "Lab Assistant & Moderator", photo: "https://randomuser.me/api/portraits/men/75.jpg" }
@@ -152,11 +183,21 @@ document.addEventListener("DOMContentLoaded", () => {
         sponsorGrid.appendChild(card);
       });
     }
+    
+    // === LOGIC PROTEKSI TOMBOL DAFTAR (BARU) ===
     const registerBtn = document.querySelector(".register-now-btn");
     
     registerBtn.addEventListener("click", () => {
-      window.location.href = `../EventRegister/index.html?event=${encodeURIComponent(eventData.name)}`;
+      const loggedInUser = localStorage.getItem("loggedInUser");
+      
+      if (loggedInUser) {
+        window.location.href = `../EventRegister/index.html?event=${encodeURIComponent(eventData.name)}`;
+      } else {
+        alert("Anda harus login untuk mendaftar acara ini!");
+        window.location.href = "../Login/index.html";
+      }
     });
+    // === BATAS LOGIC PROTEKSI ===
   }
 
   // Panggil fungsi utamanya

@@ -1,4 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // === BLOK PROTEKSI LOGIN ===
+  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  if (!loggedInUser) {
+    alert("Anda harus login untuk mengakses formulir pendaftaran event.");
+    window.location.href = "../Login/index.html";
+    return; // Hentikan eksekusi script
+  }
+  // === AKHIR BLOK PROTEKSI LOGIN ===
+  
+  // Sisa kode asli EventRegister/script.js di sini (sudah dimodifikasi dari jawaban sebelumnya)
+  // ...
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  // === FUNGSI PROTEKSI LOGIN (HARUS ADA DI PALING ATAS) ===
+  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  if (!loggedInUser) {
+    alert("Anda harus login untuk mengakses formulir pendaftaran event.");
+    window.location.href = "../Login/index.html";
+    return; // Hentikan eksekusi script jika belum login
+  }
+  // === BATAS PROTEKSI LOGIN ===
+  
   const eventQuestion = document.getElementById("event-question");
   const registerForm = document.getElementById("registerForm");
 
@@ -38,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
       email,
       phone,
       guests,
+      username: loggedInUser.username, // Tambahkan username dari loggedInUser
       timestamp: new Date().toISOString()
     };
 

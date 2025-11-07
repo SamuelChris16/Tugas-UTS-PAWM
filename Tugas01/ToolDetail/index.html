@@ -22,10 +22,17 @@
     </ul>
   </nav>
   <div class="nav-auth">
-    <a href="../Login/index.html" class="login-btn">LOGIN</a>
-    <a href="../Register/index.html" class="register-btn">REGISTER</a>
-    <a href="#" class="settings-btn"><i class="fa-solid fa-gear"></i></a>
-  </div>
+      <a href="../Login/index.html" class="login-btn" id="loginBtn">LOGIN</a>
+      <a href="../Register/index.html" class="register-btn" id="registerBtn">REGISTER</a>
+      
+      <div class="user-profile hidden" id="userProfileContainer">
+        <a href="#" class="profile-link">
+          <span id="userNameDisplay">User</span>
+          <i class="fa-solid fa-user-circle"></i> </a>
+        <a href="#" class="logout-btn" id="logoutBtn">
+          <i class="fa-solid fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
 </header>
 
   <main class="detail-container">

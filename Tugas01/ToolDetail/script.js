@@ -1,4 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Panggil fungsi navbar di sini juga (disarankan untuk konsistensi)
+  function checkLoginStatus() {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    const loginBtn = document.getElementById("loginBtn");
+    const registerBtn = document.getElementById("registerBtn");
+    const userProfileContainer = document.getElementById("userProfileContainer");
+    const userNameDisplay = document.getElementById("userNameDisplay");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (loggedInUser) {
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (registerBtn) registerBtn.style.display = 'none';
+      if (userProfileContainer) userProfileContainer.classList.remove('hidden');
+      if (userNameDisplay) userNameDisplay.textContent = loggedInUser.username;
+      
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          localStorage.removeItem("loggedInUser");
+          alert("Anda telah berhasil keluar (Logout).");
+          window.location.href = "../Home/index.html"; 
+        });
+      }
+    } else {
+      if (loginBtn) loginBtn.style.display = 'block';
+      if (registerBtn) registerBtn.style.display = 'block';
+      if (userProfileContainer) userProfileContainer.classList.add('hidden');
+    }
+  }
+  checkLoginStatus();
+
   // === DATABASE DETAIL ALAT (DALAM BAHASA INGGRIS) ===
   const allToolDetails = {
     "Oculus Quest 2": {
@@ -40,7 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "https://i.all3dp.com/cdn-cgi/image/fit=cover,w=1284,h=722,gravity=0.5x0.5,format=auto/main/2022/02/17150146/creality-cr-scan-lizard-in-hand-220216.jpg"
       ]
     },
-    // Menambahkan data untuk alat lain yang ada di Facility/script.js
     "Motion Capture Suit": {
         description: "A full-body tracking suit to bring your real-world movements into virtual reality. Ideal for character animation and interaction.",
         howToUse: `1. Wear the suit, ensuring all sensors are properly placed on your joints.
@@ -49,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
 4. Begin capturing motion data.
 5. Export the data (e.g., as FBX or BVH) for use in your 3D engine.`,
         images: [
-          "../assets/MotionCaptureSuit.webp", // Menggunakan gambar lokal
+          "../assets/MotionCaptureSuit.webp",
           "https://m.media-amazon.com/images/I/61P+u3-aLPL.jpg",
           "https://www.bhs-vfx.co.uk/wp-content/uploads/2022/07/MVN_Link_3-scaled.jpg"
         ]
@@ -61,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
 3. Put on your VR headset and start the compatible game.
 4. Begin walking or running; the low-friction surface will detect your movement.`,
         images: [
-          "../assets/VRTreadmill.webp", // Menggunakan gambar lokal
+          "../assets/VRTreadmill.webp",
           "https://arvrtips.com/wp-content/uploads/2020/02/virtuix-omni-vr-treadmill-1024x576.jpg"
         ]
     },
@@ -73,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
 4. Start a compatible application that supports haptic feedback.
 5. Interact with virtual objects and feel the sensations.`,
         images: [
-          "../assets/HapticGloves.jpg", // Menggunakan gambar lokal
+          "../assets/HapticGloves.jpg",
           "https://www.wareable.com/media/imager/202107/35163-original.jpg",
           "https://manus-vrm.com/wp-content/uploads/2022/10/MANUS-METAGLOVES-QUANTUM-USECASE-1-scaled.jpg"
         ]
@@ -152,11 +182,19 @@ document.addEventListener("DOMContentLoaded", () => {
   nextBtn.addEventListener("click", () => goToSlide(currentIndex + 1));
   prevBtn.addEventListener("click", () => goToSlide(currentIndex - 1));
 
-  // Event Listener untuk Tombol Book
+  // === LOGIC PROTEKSI TOMBOL BOOK (BARU) ===
   bookBtn.addEventListener("click", () => {
     const toolName = toolNameEl.textContent; // Ambil nama alat dari H1
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
     if (toolName && toolName !== "Error: Tool Not Found") {
-      window.location.href = `../ToolBooking/index.html?tool=${encodeURIComponent(toolName)}`;
+      if (loggedInUser) {
+        window.location.href = `../ToolBooking/index.html?tool=${encodeURIComponent(toolName)}`;
+      } else {
+        alert("Anda harus login untuk melakukan booking alat!");
+        window.location.href = "../Login/index.html";
+      }
     }
   });
+  // === BATAS LOGIC PROTEKSI ===
 });

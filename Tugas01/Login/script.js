@@ -23,8 +23,17 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
   if (users.length > 0) {
     const user = users[0];
+    
+    // === PERUBAHAN UTAMA: SIMPAN USERNAME UNTUK NAVBAR ===
+    localStorage.setItem(
+        "loggedInUser", 
+        JSON.stringify({ 
+            username: user.username,
+            timestamp: new Date().toISOString()
+        })
+    );
+    
     alert(`Welcome back, ${user.username}!`);
-    localStorage.setItem("loggedInUser", JSON.stringify(user));
     window.location.href = "../Home/index.html";
   } else {
     alert("Invalid username or password!");

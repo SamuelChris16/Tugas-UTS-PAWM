@@ -1,4 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // === FUNGSI PROTEKSI LOGIN (HARUS ADA DI PALING ATAS) ===
+  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  if (!loggedInUser) {
+    alert("Anda harus login untuk mengakses formulir booking alat.");
+    window.location.href = "../Login/index.html";
+    return; // Hentikan eksekusi script jika belum login
+  }
+  // === BATAS PROTEKSI LOGIN ===
+
   const bookingForm = document.getElementById("bookingForm");
   const bookingHeader = document.getElementById("booking-header");
   const fileInput = document.getElementById("file-upload");
@@ -80,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
       campus,
       phone,
       fileName: file.name,
+      username: loggedInUser.username, // Tambahkan username dari loggedInUser
       timestamp: new Date().toISOString()
     };
 

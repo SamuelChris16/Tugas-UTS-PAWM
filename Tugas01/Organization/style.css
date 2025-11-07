@@ -53,7 +53,48 @@ button {
 .nav-auth .register-btn { background-color: var(--color-primary); padding: 10px 20px; border-radius: 30px; font-weight: 700; transition: 0.3s; }
 .nav-auth .register-btn:hover { background-color: #A998E0; }
 .nav-auth .settings-btn { font-size: 1.5rem; color: var(--color-text); }
-/* === BATAS NAVBAR === */
+/* === BATAS NAVBAR LAMA === */
+
+/* === STYLE BARU UNTUK USER PROFILE SETELAH LOGIN (WAJIB DITAMBAHKAN) === */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.user-profile.hidden {
+  display: none !important;
+}
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+.profile-link i {
+  font-size: 1.5rem;
+  color: var(--color-primary); 
+}
+.logout-btn {
+  background-color: var(--color-primary-light);
+  color: var(--color-text);
+  padding: 8px 15px;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+.logout-btn:hover {
+  background-color: #5C5282;
+}
+.settings-btn.hidden {
+  display: none !important;
+}
+/* === BATAS STYLE BARU === */
 
 
 /* === KONTEN UTAMA (BARU) === */
@@ -147,6 +188,16 @@ button {
   .navbar { padding: 10px 20px; }
   /* (Asumsi kamu akan buat menu mobile nanti) */
   /* .nav-links { display: none; } */
+
+  /* KODE BARU UNTUK TAMPILAN PROFILE DI MOBILE */
+  .nav-auth .user-profile {
+      display: flex !important; 
+      gap: 10px;
+  }
+  .nav-auth .profile-link span {
+      display: none; 
+  }
+  /* BATAS KODE BARU UNTUK TAMPILAN PROFILE DI MOBILE */
 
   /* Ubah jadi 1 kolom di mobile */
   .team-grid {

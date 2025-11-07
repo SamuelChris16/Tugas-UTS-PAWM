@@ -1,4 +1,43 @@
 document.addEventListener("DOMContentLoaded", () => {
+  
+  // === FUNGSI UNIVERSAL CEK & TAMPILKAN STATUS LOGIN ===
+  function checkLoginStatus() {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    
+    // Ambil elemen-elemen navbar
+    const loginBtn = document.getElementById("loginBtn");
+    const registerBtn = document.getElementById("registerBtn");
+    const userProfileContainer = document.getElementById("userProfileContainer");
+    const userNameDisplay = document.getElementById("userNameDisplay");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (loggedInUser) {
+      // User sudah login
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (registerBtn) registerBtn.style.display = 'none';
+      if (userProfileContainer) userProfileContainer.classList.remove('hidden');
+      if (userNameDisplay) userNameDisplay.textContent = loggedInUser.username;
+      
+      // Tambahkan event listener untuk Logout
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          localStorage.removeItem("loggedInUser"); // Hapus data login
+          alert("Anda telah berhasil keluar (Logout).");
+          window.location.href = "../Home/index.html"; 
+        });
+      }
+    } else {
+      // User belum login
+      if (loginBtn) loginBtn.style.display = 'block';
+      if (registerBtn) registerBtn.style.display = 'block';
+      if (userProfileContainer) userProfileContainer.classList.add('hidden');
+    }
+  }
+
+  // Panggil fungsi cek status di awal pemuatan halaman (WAJIB)
+  checkLoginStatus();
+
   // === FUNGSI UNTUK MENGAMBIL/INISIALISASI DATABASE ALAT ===
   function getToolsDatabase() {
     let toolsData = JSON.parse(localStorage.getItem("labTools"));
@@ -105,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
       
       toolGrid.appendChild(card);
 
-      // --- Logika Tombol (Sudah benar) ---
+      // --- Logika Tombol ---
       const detailsButton = card.querySelector(".btn-details");
       detailsButton.addEventListener("click", () => {
         window.location.href = `../ToolDetail/index.html?tool=${encodeURIComponent(tool.name)}`;
@@ -119,6 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
         bookButton.style.backgroundColor = "#555"; 
         bookButton.style.cursor = "not-allowed";
       } else {
+        // Logika booking akan diproteksi di ToolBooking/script.js
         bookButton.addEventListener("click", () => {
           window.location.href = `../ToolBooking/index.html?tool=${encodeURIComponent(tool.name)}`;
         });

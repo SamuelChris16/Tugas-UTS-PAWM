@@ -41,9 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
 5. Select the application or game you want to run.
 6. Always be aware of your surroundings while playing.`,
       images: [
-        "https://i.ebayimg.com/images/g/52MAAOSwJ3Rj6M~q/s-l1200.webp",
-        "https://www.popsci.com/uploads/2021/11/17/oculus-quest-2-review-2.jpg?auto=webp",
-        "https://www.protocol.com/media-library/oculus-quest-2.jpg?id=24716491&width=1200&height=600&quality=85&coordinates=0%2C0%2C0%2C0"
+        "https://wafuu.com/cdn/shop/products/meta-quest-2-advanced-all-in-one-virtual-reality-headset-128gb-213690.jpg?v=1695255826",
+        "https://cdn.arstechnica.net/wp-content/uploads/2021/04/oculus-keyboard-01.png",
+        "https://variety.com/wp-content/uploads/2020/09/oculus-quest-2.jpg"
       ]
     },
     "High-Performance PC": {
@@ -54,9 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
 4. Open your development software (e.g., Unity Hub, Unreal Engine).
 5. Connect your VR headset (if using PC-VR) and ensure the drivers are detected.`,
       images: [
-        "https://images.tokopedia.net/img/cache/700/VqbcmM/2022/9/22/71e405e3-4f93-47a8-971c-f2f01f8f307e.png",
-        "https://dlcdnimgs.asus.com/websites/global/products/g16ch/images/G16CH-p1.png",
-        "https://images.samsung.com/is/image/samsung/assets/us/computing/monitors/gaming/odyssey-g9/g95c/01-G95SC-LS49CG954SNXZA-Back-Black-US.jpg?$FB_TYPE_A_JPG$"
+        "https://www.ukgamingcomputers.co.uk/media/catalog/product/cache/e4debf30cbf8fc48eea0edc9ed6f98d7/e/l/eliminator24main1.jpg",
+        "https://i.ebayimg.com/images/g/2p8AAOSwG~5n92OK/s-l400.jpg",
+        "https://buykeynow.com/image/cache/New%20Products/Gaming%20Computers/1005002966780142/Desktop%20Computer%20Intel%20Xeon%20E5-2650%208-Core%20GTX1050%20GTX%20750%208G%2016G%20RAM%20256G%20SSD%20Cheap%20Gaming%20High%20Performance%20Desktop%20pc%20gamer%200-500x500.jpg"
       ]
     },
     "3D Scanner": {
@@ -67,8 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
 4. Move the scanner slowly around the object until all sides are scanned.
 5. Process and 'stitch' the scan data in the software to create a complete model.`,
       images: [
-        "https://www.creality.com/cdn/shop/files/CR-Scan-Lizard_Standard_1000x.jpg?v=1685002875",
-        "https://i.all3dp.com/cdn-cgi/image/fit=cover,w=1284,h=722,gravity=0.5x0.5,format=auto/main/2022/02/17150146/creality-cr-scan-lizard-in-hand-220216.jpg"
+        "https://www.geekmaxi.com/img/p/4/2/4/6/2/42462-large_default.webp",
+        "https://www.aniwaa.com/wp-content/uploads/2022/07/Shining-3D-FreeScan-UE-Pro-new-3D-scanner-aspect-ratio-426-328.png"
       ]
     },
     "Motion Capture Suit": {
@@ -80,8 +80,8 @@ document.addEventListener("DOMContentLoaded", () => {
 5. Export the data (e.g., as FBX or BVH) for use in your 3D engine.`,
         images: [
           "../assets/MotionCaptureSuit.webp",
-          "https://m.media-amazon.com/images/I/61P+u3-aLPL.jpg",
-          "https://www.bhs-vfx.co.uk/wp-content/uploads/2022/07/MVN_Link_3-scaled.jpg"
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/VPL_DataSuit_1.jpg/578px-VPL_DataSuit_1.jpg",
+          "https://deva90sapmc8w.cloudfront.net/mocapSuit-full.png"
         ]
     },
     "VR Treadmill": {
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
 4. Begin walking or running; the low-friction surface will detect your movement.`,
         images: [
           "../assets/VRTreadmill.webp",
-          "https://arvrtips.com/wp-content/uploads/2020/02/virtuix-omni-vr-treadmill-1024x576.jpg"
+          "https://www.knoxlabs.com/cdn/shop/files/KAT-Walk-C2-Plus-2nd-Generation-Personal-VR-Treadmill-with-Haptic-Feedback-04_1200x1200.webp?v=1689714498"
         ]
     },
     "Haptic Gloves": {
@@ -104,8 +104,8 @@ document.addEventListener("DOMContentLoaded", () => {
 5. Interact with virtual objects and feel the sensations.`,
         images: [
           "../assets/HapticGloves.jpg",
-          "https://www.wareable.com/media/imager/202107/35163-original.jpg",
-          "https://manus-vrm.com/wp-content/uploads/2022/10/MANUS-METAGLOVES-QUANTUM-USECASE-1-scaled.jpg"
+          "https://platform.vox.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/23021661/RL___Haptic_Glove_1scaled.jpeg?quality=90&strip=all&crop=0,0.089126559714799,100,99.82174688057",
+          "https://www.synapse.com/wp-content/uploads/2022/07/Haptx-Thumbnail-800x800-1.jpg"
         ]
     }
   };

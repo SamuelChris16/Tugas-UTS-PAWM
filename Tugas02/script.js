@@ -1,13 +1,22 @@
-window.addEventListener("load", () => {
-  const splash = document.getElementById("splash-screen");
-  const appPage = document.getElementById("app-page");
-
-  // Splash tampil selama 5 detik
+document.addEventListener("DOMContentLoaded", () => {
+  const splashLayer = document.getElementById("splash-layer");
+  
+  // Durasi total animasi App Icon: 4000ms (4 detik)
+  const SPLASH_DURATION = 4000; 
+  
   setTimeout(() => {
-    splash.style.opacity = "0"; // fade-out
+    // 1. Terapkan animasi fade-out pada splash screen
+    splashLayer.style.opacity = "0";
+    splashLayer.style.transform = "translateY(-50px)"; 
+
+    // 2. Tunggu sebentar (durasi transisi CSS: 0.5s)
     setTimeout(() => {
-      splash.style.display = "none"; // sembunyikan splash
-      appPage.style.opacity = "1";   // tampilkan app icon
-    }, 1000); // tunggu animasi fade selesai
-  }, 5000); // durasi splash: 5 detik
+      // 3. Lakukan navigasi/redirect ke halaman Home di Tugas 01
+      // Path: dari Tugas02/index.html naik satu level (..) lalu masuk ke Tugas01/Home/index.html
+      window.location.href = "../Tugas01/Home/index.html"; 
+
+    }, 500); // 500ms adalah durasi transisi fade-out
+
+  }, SPLASH_DURATION);
+  
 });

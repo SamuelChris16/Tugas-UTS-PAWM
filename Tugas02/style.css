@@ -1,51 +1,70 @@
-/* Reset dasar */
-* {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display.swap');
+
+/* Variabel warna diambil dari file Home/style.css (konsistensi tema) */
+:root {
+  --color-bg: #1B162C;
+  --color-text-muted: #BFBFBF;
+}
+
+/* --- OVERRIDE GLOBAL DAN SPLASH STYLE --- */
+html, body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
   height: 100%;
   width: 100%;
-  background-color: #000;
+  background-color: var(--color-bg); 
   font-family: 'Poppins', sans-serif;
-  overflow: hidden;
+  overflow: hidden; 
 }
 
-/* === SPLASH SCREEN === */
-#splash-screen {
+/* === SPLASH SCREEN ANIMATION === */
+#splash-layer {
   position: fixed;
   inset: 0;
-  background-image: url('assets/SplashScreen.png');
-  background-size: contain; /* ubah ke 'cover' kalau mau penuh tanpa ruang kosong */
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-color: #000;
-  transition: opacity 1s ease;
-  z-index: 2;
-  opacity: 1;
-}
-
-/* === APP ICON PAGE === */
-#app-page {
-  height: 100vh;
+  background-color: var(--color-bg); 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  transition: opacity 1s ease;
+  z-index: 9999; 
+  /* Transisi untuk fade-out */
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out; 
 }
 
-.app-icon {
-  width: 200px;
+.splash-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#app-icon {
+  width: 150px;
   height: auto;
-  filter: drop-shadow(0 0 15px #00f6ff);
+  opacity: 0; 
+  animation: fade-in 1s ease-out 0.5s forwards, 
+             pulse-glow 1.5s infinite alternate 1.5s; 
 }
 
-#app-page h2 {
-  color: #fff;
-  margin-top: 20px;
-  font-size: 1.2rem;
+#loading-text {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    margin-top: 20px;
+    opacity: 0; 
+    animation: slide-up-fade 1s ease-out 1.5s forwards; 
+}
+
+/* === KEYFRAMES ANIMATION === */
+@keyframes fade-in {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-up-fade {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-glow {
+    0% { filter: drop-shadow(0 0 5px rgba(0, 246, 255, 0.4)); }
+    100% { filter: drop-shadow(0 0 20px rgba(0, 246, 255, 0.8)); }
 }

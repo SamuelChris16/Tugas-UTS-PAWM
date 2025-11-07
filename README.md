@@ -59,10 +59,3 @@ Ini adalah tugas Ujian Tengah Semester (UTS). Pastikan untuk mengikuti instruksi
 
 Jika ada folder “.DS_Store” atau file konfigurasi editor, dapat diabaikan atau di-.gitignore untuk deployment produksi.
 
-🙋 Kontribusi
-
-Repositori ini bersifat tugas personal — jika rekan-rekan ingin melihat atau belajar dari proyek ini boleh, namun mohon tidak digandakan sebagai karya sendiri tanpa izin.
-
-📄 Lisensi
-
-Hak cipta milik pemilik repositori. Untuk penggunaan pribadi atau pembelajaran diperbolehkan, namun untuk komersial atau publikasi lebih lanjut mohon izin terlebih dahulu.

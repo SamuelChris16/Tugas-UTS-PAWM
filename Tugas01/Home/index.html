@@ -5,41 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Metaverse Lab ITB</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 <body>
 
-  <!-- NAVBAR -->
   <header class="navbar">
-  <div class="logo">
-    <img src="../assets/LogoLab.png" alt="Logo Metaverse Lab" />
-  </div>
-  <nav>
-    <ul class="nav-links">
-      <li><a href="index.html" style="color: #AEDEE4;">Home</a></li>
-      <li><a href="../Event/index.html">Event</a></li>
-      <li><a href="../Facility/index.html">Facility</a></li>
-      <li><a href="../Organization/index.html">Organization</a></li>
-      <li><a href="../Project/index.html">Project</a></li>
-      <li><a href="../Login/index.html" class="login-btn">Login</a></li>
-      <li><a href="../Register/index.html" class="register-btn">Register</a></li>
-    </ul>
-  </nav>
-</header>
+    <div class="logo">
+      <img src="../assets/LogoLab.png" alt="Logo Metaverse Lab" />
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li> <li><a href="../Event/index.html">Event</a></li>
+        <li><a href="../Facility/index.html">Facility</a></li>
+        <li><a href="../Organization/index.html">Organization</a></li>
+        <li><a href="../Project/index.html">Project</a></li>
+      </ul>
+    </nav>
+    <div class="nav-auth">
+      <a href="../Login/index.html" class="login-btn">LOGIN</a>
+      <a href="../Register/index.html" class="register-btn">REGISTER</a>
+      <a href="#" class="settings-btn"><i class="fa-solid fa-gear"></i></a>
+    </div>
+  </header>
 
-  <!-- HERO SECTION -->
   <section id="hero" class="hero">
-    <div class="hero-bg"></div>
+    <div class="hero-bg" style="background-image: url('../assets/BackgroundHome.png');"></div>
     <div class="hero-content">
       <div class="hero-text">
         <img src="../assets/Perkenalan.png" alt="Hello I'm Roga" class="hero-text-img">
       </div>
       <div class="hero-image">
-        <img src="../assets/RogaHALO.png" alt="Roga">
+        <img src="../assets/rogaHALO.png" alt="Roga">
       </div>
     </div>
   </section>
 
-  <!-- ABOUT -->
   <section class="about">
     <p>
       Welcome to <b>Metaverse Laboratory ITB</b>, where the boundaries between the physical and digital blur,
@@ -49,7 +49,6 @@
     </p>
   </section>
 
-  <!-- VISI & MISI -->
   <section class="vision-mission">
     <div class="visi">
       <img src="../assets/VISI.png" alt="Visi" class="visi-img">
@@ -61,29 +60,71 @@
     </div>
   </section>
 
-  <!-- EVENT -->
-  <section id="event" class="carousel-section">
-    <h2>Event</h2>
-    <div class="carousel-container">
-      <div class="carousel-track" id="eventTrack">
-        <div class="card"><div class="card-img"></div><div class="card-body"><h3>Event 1</h3><p>26 Sept 2025 - Aula Barat</p><button class="register-btn-card">Register Now</button></div></div>
-        <div class="card"><div class="card-img"></div><div class="card-body"><h3>Event 2</h3><p>10 Okt 2025 - Aula Timur</p><button class="register-btn-card">Register Now</button></div></div>
-        <div class="card"><div class="card-img"></div><div class="card-body"><h3>Event 3</h3><p>20 Nov 2025 - Aula Barat</p><button class="register-btn-card">Register Now</button></div></div>
+  <section id="event" class="preview-section">
+    <div class="section-header">
+      <h2>Event</h2>
+      <a href="../Event/index.html" class="see-more">≫ SEE MORE</a>
+    </div>
+    <div class="card-container event-container">
+      <div class="preview-card">
+        <div class="card-img" style="background-image: url('https://www.automationalley.com/wp-content/uploads/620c0d2e51cac31b68588bec_202202_04-AutomationAlley-Articles-VR.jpg')"></div>
+        <div class="card-info">
+          <p>15 November 2025<br>Aula Barat</p>
+          <div class="card-buttons">
+            <button class="btn-details event-detail" data-event-name="VR Development Workshop">Details</button>
+            <button class="btn-primary event-register" data-event-name="VR Development Workshop">Register</button>
+          </div>
+        </div>
       </div>
-      <div class="carousel-arrow" id="eventNext">≫ SEE MORE</div>
+      <div class="preview-card">
+        <div class="card-img" style="background-image: url('https://www.learntek.org/blog/wp-content/uploads/2021/11/Metaverse-Technology.png')"></div>
+        <div class="card-info">
+          <p>20 November 2025<br>Aula Timur</p>
+          <div class="card-buttons">
+            <button class="btn-details event-detail" data-event-name="Intro to Metaverse">Details</button>
+            <button class="btn-primary event-register" data-event-name="Intro to Metaverse">Register</button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- TOOLS -->
-  <section id="tools" class="carousel-section">
-    <h2>Tools</h2>
-    <div class="carousel-container">
-      <div class="carousel-track" id="toolsTrack">
-        <div class="card"><div class="card-img"></div><div class="card-body"><h3>Tool 1</h3><p>Qty: 5</p><button class="book-btn-card">Book Now</button></div></div>
-        <div class="card"><div class="card-img"></div><div class="card-body"><h3>Tool 2</h3><p>Qty: 10</p><button class="book-btn-card">Book Now</button></div></div>
-        <div class="card"><div class="card-img"></div><div class="card-body"><h3>Tool 3</h3><p>Qty: 3</p><button class="book-btn-card">Book Now</button></div></div>
+  <section id="tools" class="preview-section">
+    <div class="section-header">
+      <h2>Tools</h2>
+      <a href="../Facility/index.html" class="see-more">≫ SEE MORE</a>
+    </div>
+    <div class="card-container tools-container">
+      <div class="preview-card">
+        <div class="card-img" style="background-image: url('../assets/oculus.jpg');"></div>
+        <div class="card-info">
+          <p>Oculus Quest 2<br>Quantity: 5</p>
+          <div class="card-buttons">
+            <button class="btn-details tool-detail" data-tool-name="Oculus Quest 2">Details</button>
+            <button class="btn-primary tool-book" data-tool-name="Oculus Quest 2">Book Now</button>
+          </div>
+        </div>
       </div>
-      <div class="carousel-arrow" id="toolsNext">≫ SEE MORE</div>
+      <div class="preview-card">
+        <div class="card-img" style="background-image: url('../assets/HapticGloves.jpg');"></div>
+        <div class="card-info">
+          <p>Haptic Gloves<br>Quantity: 3</p>
+          <div class="card-buttons">
+            <button class="btn-details tool-detail" data-tool-name="Haptic Gloves">Details</button>
+            <button class="btn-primary tool-book" data-tool-name="Haptic Gloves">Book Now</button>
+          </div>
+        </div>
+      </div>
+      <div class="preview-card">
+        <div class="card-img" style="background-image: url('../assets/MotionCaptureSuit.webp');"></div>
+        <div class="card-info">
+          <p>Motion Capture Suit<br>Quantity: 1</p>
+          <div class="card-buttons">
+            <button class="btn-details tool-detail" data-tool-name="Motion Capture Suit">Details</button>
+            <button class="btn-primary tool-book" data-tool-name="Motion Capture Suit">Book Now</button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 

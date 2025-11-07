@@ -1,31 +1,49 @@
-// Carousel looping logic
-function initCarousel(trackId, nextBtnId, visibleCount) {
-  const track = document.getElementById(trackId);
-  const nextBtn = document.getElementById(nextBtnId);
-  const cards = Array.from(track.children);
-  let index = 0;
+document.addEventListener("DOMContentLoaded", () => {
 
-  nextBtn.addEventListener("click", () => {
-    index += visibleCount;
-    if (index >= cards.length) index = 0;
-    const offset = -index * (cards[0].offsetWidth + 30);
-    track.style.transform = `translateX(${offset}px)`;
-    track.style.transition = "transform 0.6s ease";
+  // --- LOGIKA UNTUK TOMBOL EVENT ---
+  
+  // 1. Tombol "Details" Event
+  document.querySelectorAll(".event-detail").forEach(button => {
+    button.addEventListener("click", (e) => {
+      const eventName = e.target.dataset.eventName;
+      if (eventName) {
+        window.location.href = `../EventDetail/index.html?event=${encodeURIComponent(eventName)}`;
+      }
+    });
   });
-}
 
-initCarousel("eventTrack", "eventNext", 2);
-initCarousel("toolsTrack", "toolsNext", 3);
-
-// Redirect buttons
-document.querySelectorAll(".register-btn-card").forEach(btn => {
-  btn.addEventListener("click", () => {
-    window.location.href = "../registernoew/registernoew.html";
+  // 2. Tombol "Register" Event
+  document.querySelectorAll(".event-register").forEach(button => {
+    button.addEventListener("click", (e) => {
+      const eventName = e.target.dataset.eventName;
+      if (eventName) {
+        window.location.href = `../EventRegister/index.html?event=${encodeURIComponent(eventName)}`;
+      }
+    });
   });
-});
 
-document.querySelectorAll(".book-btn-card").forEach(btn => {
-  btn.addEventListener("click", () => {
-    window.location.href = "../booknow/booknow.html";
+  // --- LOGIKA UNTUK TOMBOL TOOLS ---
+
+  // 3. Tombol "Details" Tools
+  document.querySelectorAll(".tool-detail").forEach(button => {
+    button.addEventListener("click", (e) => {
+      const toolName = e.target.dataset.toolName;
+      if (toolName) {
+        // Asumsi halaman detail tool akan dibuat nanti
+        // window.location.href = `../ToolDetail/index.html?tool=${encodeURIComponent(toolName)}`;
+        alert(`Navigasi ke Detail untuk: ${toolName}`); // Placeholder
+      }
+    });
   });
+
+  // 4. Tombol "Book Now" Tools
+  document.querySelectorAll(".tool-book").forEach(button => {
+    button.addEventListener("click", (e) => {
+      const toolName = e.target.dataset.toolName;
+      if (toolName) {
+        window.location.href = `../ToolBooking/index.html?tool=${encodeURIComponent(toolName)}`;
+      }
+    });
+  });
+
 });

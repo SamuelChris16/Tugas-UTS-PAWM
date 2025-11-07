@@ -25,7 +25,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     const user = users[0];
     alert(`Welcome back, ${user.username}!`);
     localStorage.setItem("loggedInUser", JSON.stringify(user));
-    window.location.href = "../dashboard/dashboard.html";
+    window.location.href = "../Home/index.html";
   } else {
     alert("Invalid username or password!");
   }

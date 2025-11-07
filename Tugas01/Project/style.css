@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display.swap');
+
+/* === VARIABLE WARNA (Copy dari Event/style.css) === */
+:root {
+  --color-bg: #1B162C;
+  --color-primary: #8A76C8; /* Ungu Primer */
+  --color-primary-light: #4A406D; /* Background Input */
+  --color-card-bg: #2A214D; /* Background Kartu */
+  --color-text: #FFFFFF;
+  --color-text-muted: #BFBFBF;
+}
+
+/* === RESET & BODY (Copy dari Event/style.css) === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* === NAVBAR (Copy dari Event/style.css) === */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 60px;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-primary-light);
+}
+.logo img { width: 120px; }
+.nav-links { list-style: none; display: flex; gap: 30px; }
+.nav-links a { color: var(--color-text-muted); font-weight: 500; transition: 0.3s; padding-bottom: 5px; }
+.nav-links a:hover,
+.nav-links a.active { color: var(--color-text); font-weight: 600; border-bottom: 3px solid var(--color-primary); }
+.nav-auth { display: flex; align-items: center; gap: 15px; }
+.nav-auth .login-btn { color: var(--color-text); font-weight: 600; }
+.nav-auth .register-btn { background-color: var(--color-primary); padding: 10px 20px; border-radius: 30px; font-weight: 700; transition: 0.3s; }
+.nav-auth .register-btn:hover { background-color: #A998E0; }
+.nav-auth .settings-btn { font-size: 1.5rem; color: var(--color-text); }
+/* === BATAS NAVBAR === */
+
+
+/* === KONTEN UTAMA === */
+.container {
+  width: 90%;
+  max-width: 1300px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* 1. Search Section */
+.search-section {
+  width: 100%;
+  max-width: 700px; /* Batasi lebar search bar */
+  margin: 0 auto 30px auto;
+}
+.search-box {
+  display: flex;
+  width: 100%;
+  background-color: var(--color-card-bg); /* Sesuai UI */
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--color-primary-light);
+}
+.search-box input {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 15px 20px;
+  font-size: 1rem;
+  color: var(--color-text);
+  font-family: 'Poppins', sans-serif;
+}
+.search-box input::placeholder {
+  color: var(--color-text-muted);
+}
+.search-box button {
+  background-color: var(--color-primary);
+  border: none;
+  color: var(--color-text);
+  font-size: 1.1rem;
+  padding: 0 20px;
+}
+.search-box button:hover {
+  background-color: #A998E0;
+}
+
+/* 2. Recommendation Banner */
+.recommend-banner {
+  width: 100%;
+  height: 220px; /* Tinggi banner */
+  border-radius: 20px;
+  margin-bottom: 30px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-card-bg);
+  border: 1px solid var(--color-primary-light);
+  color: var(--color-text);
+  font-size: 1.5rem;
+  font-weight: 600;
+  
+  /* Atur posisi agar bisa ditimpa */
+  position: relative;
+  z-index: 1; /* Lapisan bawah */
+}
+
+/* === 3. Title Section (PENYESUAIAN POSISI) === */
+.title-section {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* <-- PENTING: Menengahkan grup (maskot + teks) */
+  gap: 20px; /* Jarak antara maskot dan teks */
+  
+  /* Trik agar "melayang" menimpa banner: */
+  margin-top: -75px; /* <-- Posisi vertikal grup */
+  
+  /* === INI YANG DIUBAH === */
+  margin-bottom: 35px; /* <-- POSISI DITURUNKAN (dari 40px) */
+  
+  /* Pastikan section ini di atas banner */
+  position: relative; 
+  z-index: 2; /* Lapisan atas */
+}
+.mascot-img {
+  width: 180px; /* Ukuran karakter */
+  height: auto;
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3)); /* Bayangan */
+}
+.title-section h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* 4. Project Grid */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 kolom sesuai UI */
+  gap: 30px;
+}
+.project-card {
+  background-color: var(--color-card-bg); /* Warna kartu standar */
+  border-radius: 15px;
+  overflow: hidden;
+  border: 1px solid var(--color-primary-light);
+  transition: transform 0.3s ease;
+  
+  /* Ini agar kartu tidak "tersembunyi" oleh JavaScript filter */
+  display: block; 
+}
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(138, 118, 200, 0.1);
+}
+.card-img {
+  width: 100%;
+  height: 220px;
+  background-color: #D9D9D9; /* Placeholder abu */
+  background-size: cover;
+  background-position: center;
+}
+.card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.card-body h5 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.description-box {
+  background-color: var(--color-primary-light); /* Sesuai UI */
+  border-radius: 10px;
+  padding: 15px;
+  height: 100px; /* Tinggi deskripsi box */
+  overflow: hidden; /* Sembunyikan jika deskripsi panjang */
+}
+.description-box p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+.btn-see-more {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.btn-see-more:hover {
+  background-color: #A998E0;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 992px) {
+  /* Tetap 2 kolom di tablet, tapi kurangi gap */
+  .project-grid {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar { padding: 10px 20px; }
+  
+  .project-grid {
+    grid-template-columns: 1fr; /* 1 kolom di mobile */
+  }
+  
+  .title-section {
+    flex-direction: column; /* Tumpuk maskot & judul */
+    text-align: center;
+    margin-top: -65px; /* <-- Sesuaikan overlap di mobile */
+    margin-bottom: 30px; /* Sesuaikan juga di mobile */
+    gap: 10px;
+  }
+  .mascot-img {
+    width: 140px; 
+  }
+  .title-section h1 {
+    font-size: 1.5rem;
+  }
+  
+  .recommend-banner {
+    height: 150px;
+    font-size: 1.1rem;
+  }
+}

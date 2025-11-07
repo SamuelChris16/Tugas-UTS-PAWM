@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Facility - Metaverse Lab ITB</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">
+      <img src="../assets/LogoLab.png" alt="Logo Metaverse Lab" />
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="../Home/index.html">Home</a></li>
+        <li><a href="../Event/index.html">Event</a></li>
+        <li><a href="index.html" class="active">Facility</a></li>
+        <li><a href="#">Organization</a></li>
+        <li><a href="#">Project</a></li>
+      </ul>
+    </nav>
+    <div class="nav-auth">
+      <a href="../Login/index.html" class="login-btn">LOGIN</a>
+      <a href="../Register/index.html" class="register-btn">REGISTER</a>
+      <a href="#" class="settings-btn"><i class="fa-solid fa-gear"></i></a>
+    </div>
+  </header>
+
+  <main class="facility-container">
+    
+    <section class="filter-bar">
+      <h1>Explore Metaverse Lab Facility!</h1>
+      <div class="filter-inputs">
+        <div class="search-box">
+          <i class="fa-solid fa-search"></i>
+          <input type="text" id="searchInput" placeholder="Search Tools...">
+        </div>
+      </div>
+    </section>
+
+    <div class="content-area">
+      
+      <aside class="category-sidebar">
+        <h3>Category</h3>
+        <button class="category-btn active" data-category="all">All Catalog</button>
+        <button class="category-btn" data-category="available">Available</button>
+        <button class="category-btn" data-category="latest">Latest Added</button>
+        <button class="category-btn" data-category="oldest">Oldest Added</button>
+      </aside>
+
+      <section class="tool-grid" id="toolGrid">
+        </section>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

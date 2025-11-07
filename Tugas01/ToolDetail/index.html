@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tool Details - Metaverse Lab ITB</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">
+      <img src="../assets/LogoLab.png" alt="Logo Metaverse Lab" />
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="../Home/index.html">Home</a></li>
+        <li><a href="../Event/index.html">Event</a></li>
+        <li><a href="../Facility/index.html" class="active">Facility</a></li>
+        <li><a href="#">Organization</a></li>
+        <li><a href="#">Project</a></li>
+      </ul>
+    </nav>
+    <div class="nav-auth">
+      <a href="../Login/index.html" class="login-btn">LOGIN</a>
+      <a href="../Register/index.html" class="register-btn">REGISTER</a>
+      <a href="#" class="settings-btn"><i class="fa-solid fa-gear"></i></a>
+    </div>
+  </header>
+
+  <main class="detail-container">
+    
+    <section class="tool-title-bar">
+      <h1 id="tool-name">Tool's Name</h1>
+      <button class="book-now-btn">Book Now</button>
+    </section>
+
+    <section class="tool-main-content">
+      
+      <div class="tool-info-left">
+        <div class="detail-box">
+          <h3>Description</h3>
+          <p id="tool-description">Loading description...</p>
+        </div>
+        <div class="detail-box">
+          <h3>How To Use?</h3>
+          <p id="tool-how-to-use">Loading usage instructions...</p>
+        </div>
+      </div>
+
+      <div class="tool-info-right">
+        <div class="slider-container">
+          <div class="slider-track" id="sliderTrack">
+            </div>
+          <button class="slider-arrow prev" id="slidePrev">&laquo;</button>
+          <button class="slider-arrow next" id="slideNext">&raquo;</button>
+          <div class="slider-dots" id="sliderDots">
+            </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+</body>
+<script src="script.js"></script>
+</html>

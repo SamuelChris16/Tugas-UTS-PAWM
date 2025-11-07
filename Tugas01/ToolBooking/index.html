@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tool Booking - Metaverse Lab</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="../assets/LogoLab.png" alt="Logo Metaverse Lab" />
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="../Home/index.html">Home</a></li>
+        <li><a href="../Event/index.html">Event</a></li>
+        <li><a href="../Facility/index.html" class="active">Facility</a></li>
+        <li><a href="#">Organization</a></li>
+        <li><a href="#">Project</a></li>
+      </ul>
+    </nav>
+    <div class="nav-auth">
+      <a href="../Login/index.html" class="login-btn">LOGIN</a>
+      <a href="../Register/index.html" class="register-btn">REGISTER</a>
+      <a href="#" class="settings-btn"><i class="fa-solid fa-gear"></i></a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="booking-container">
+      <h1 class="booking-header" id="booking-header">Tool's Booking</h1>
+      
+      <form class="booking-form" id="bookingForm">
+        
+        <div class="form-group">
+          <label>Name</label>
+          <div class="form-row">
+            <div class="form-col">
+              <input type="text" id="first-name" placeholder="First" required>
+            </div>
+            <div class="form-col">
+              <input type="text" id="last-name" placeholder="Last" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="student-number">Student Number</label>
+          <input type="text" id="student-number" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Campus</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="campus" value="Ganesha" checked>
+              <span class="radio-custom"></span>
+              ITB Ganesha
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="campus" value="Jatinangor">
+              <span class="radio-custom"></span>
+              ITB Jatinangor
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="campus" value="Cirebon">
+              <span class="radio-custom"></span>
+              ITB Cirebon
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="file-upload">Letter of Responsibility Upload</label>
+          <a href="#" class="download-link">Download the letter of responsibility here!</a>
+          
+          <label for="file-upload" class="file-upload-area">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <span id="file-name-display">Browse Files<br>Drag and drop files here</span>
+          </label>
+          <input type="file" id="file-upload" required>
+        </div>
+
+        <button type="submit" class="btn-submit">Book</button>
+      </form>
+    </div>
+  </main>
+</body>
+<script src="script.js"></script>
+</html>

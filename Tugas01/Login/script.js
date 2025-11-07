@@ -1,32 +1,30 @@
-// ubah teks input jadi hitam tebal saat diisi
-const inputs = document.querySelectorAll("input");
-inputs.forEach(input => {
-  input.addEventListener("input", () => {
-    if (input.value.trim() !== "") {
-      input.classList.add("filled");
-    } else {
-      input.classList.remove("filled");
-    }
-  });
-});
+// === Konfigurasi Supabase ===
+const SUPABASE_URL = "https://rbjijrdsyvudbpefovoc.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJiamlqcmRzeXZ1ZGJwZWZvdm9jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0OTA3MzIsImV4cCI6MjA3ODA2NjczMn0.mOFA2ni0VRbLk1CWS_80LBRHCVdtLWQ8ouOKqrkZLtU";
+const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// login logic
-document.getElementById("loginForm").addEventListener("submit", (e) => {
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+  // cari user berdasarkan username
+  const { data: users, error } = await client
+    .from("users")
+    .select("*")
+    .eq("username", username)
+    .eq("password", password);
 
-  // cari user yang sesuai
-  const matchedUser = storedUsers.find(
-    user => user.username === username && user.password === password
-  );
+  if (error) {
+    alert("Error checking user: " + error.message);
+    return;
+  }
 
-  if (matchedUser) {
-    alert(`Welcome back, ${matchedUser.username}!`);
-    localStorage.setItem("loggedInUser", JSON.stringify(matchedUser));
+  if (users.length > 0) {
+    const user = users[0];
+    alert(`Welcome back, ${user.username}!`);
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
     window.location.href = "../dashboard/dashboard.html";
   } else {
     alert("Invalid username or password!");

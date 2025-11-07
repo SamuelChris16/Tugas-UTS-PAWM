@@ -45,7 +45,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
       console.error("Insert error:", error);
     } else {
       alert("Registration successful!");
-      window.location.href = '../Login/index.html';
+      window.location.href = '/Tugas01/Login/index.html';
     }
   } catch (err) {
     console.error("Unexpected error:", err);

@@ -24,7 +24,7 @@ function checkLoginStatus(loggedInUser) {
         e.preventDefault();
         localStorage.removeItem("loggedInUser");
         alert("Anda telah berhasil keluar (Logout).");
-        window.location.href = "../Home/index.html"; 
+        window.location.href = "/Tugas01/Home/index.html"; 
       });
     }
   } else {
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
   if (!loggedInUser) {
     alert("Anda harus login untuk mengakses formulir booking alat.");
-    window.location.href = "../Login/index.html";
+    window.location.href = "/Tugas01/Login/index.html";
     return;
   }
   // Panggil fungsi navbar setelah memastikan user login
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (!toolName) {
     alert("No tool selected. Please choose a tool first.");
-    window.location.href = "../Facility/index.html";
+    window.location.href = "/Tugas01/Facility/index.html";
     return;
   }
 
@@ -93,13 +93,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (toolData.quantity === 0) {
       alert(`The tool '${toolName}' is currently unavailable (quantity: 0).`);
-      window.location.href = "../Facility/index.html";
+      window.location.href = "/Tugas01/Facility/index.html";
       return;
     }
   } catch (toolError) {
     console.error("Error fetching tool data:", toolError.message);
     alert(`Failed to load tool data for ${toolName}. Please try again later.`);
-    window.location.href = "../Facility/index.html";
+    window.location.href = "/Tugas01/Facility/index.html";
     return;
   }
   
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (!toolIdToUse || toolData.quantity <= 0) {
         alert("Booking failed: Tool ID is missing or tool is unavailable.");
-        window.location.href = "../Facility/index.html";
+        window.location.href = "/Tugas01/Facility/index.html";
         return;
     }
     
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
 
       alert(`Booking for ${toolData.name} successful!`);
-      window.location.href = "../Facility/index.html";
+      window.location.href = "/Tugas01/Facility/index.html";
     } catch (err) {
       console.error("Unexpected error during booking:", err);
       alert("Unexpected error: " + err.message);

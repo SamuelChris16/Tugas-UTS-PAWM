@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Rules:
     // - jika sudah full URL (http/https) -> pakai langsung
     // - else coba dapatkan publicUrl dari supabase.storage.from(IMAGE_BUCKET_NAME).getPublicUrl(path)
-    // - kalau gagal, fallback ke ../assets/<filename>
+    // - kalau gagal, fallback ke /Tugas01/assets/<filename>
     async function normalizeToPublicUrls(list) {
       const out = [];
       for (const u of list) {
@@ -122,8 +122,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           out.push(u);
           continue;
         }
-        // jika path sudah relatif (mulai dengan "../" atau "/"), gunakan langsung
-        if (u.startsWith("../") || u.startsWith("/")) {
+        // jika path sudah relatif (mulai dengan "/Tugas01/" atau "/"), gunakan langsung
+        if (u.startsWith("/Tugas01/") || u.startsWith("/")) {
           out.push(u);
           continue;
         }
@@ -142,8 +142,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           console.warn("getPublicUrl error for", u, e);
         }
 
-        // fallback: anggap filename dan prefix ../assets/
-        out.push(`../assets/${u}`);
+        // fallback: anggap filename dan prefix /Tugas01/assets/
+        out.push(`/Tugas01/assets/${u}`);
       }
       return out;
     }
@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     bookBtn.addEventListener("click", () => {
       const idToSend = tool.id_tools;
       if (!idToSend) return alert("Tool ID not available.");
-      window.location.href = `../ToolBooking/index.html?id=${encodeURIComponent(idToSend)}&tool=${encodeURIComponent(tool.name)}`;
+      window.location.href = `/Tugas01/ToolBooking/index.html?id=${encodeURIComponent(idToSend)}&tool=${encodeURIComponent(tool.name)}`;
     });
 
   } catch (err) {

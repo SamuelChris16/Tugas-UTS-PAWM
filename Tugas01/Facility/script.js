@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           e.preventDefault();
           localStorage.removeItem("loggedInUser"); // Hapus data login
           alert("Anda telah berhasil keluar (Logout).");
-          window.location.href = "../Home/index.html"; 
+          window.location.href = "/Tugas01/Home/index.html"; 
         });
       }
     } else {
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       
       // Catatan: Saya menggunakan 'image_url' atau 'imgUrl' (jika masih ada dari local storage)
       card.innerHTML = `
-        <div class="card-img" style="background-image: url('${tool.image_url || tool.imgUrl || "../assets/default.png"}')"></div>
+        <div class="card-img" style="background-image: url('${tool.image_url || tool.imgUrl || "/Tugas01/assets/default.png"}')"></div>
         <div class="card-body">
           <h4>${tool.name}</h4>
           <p class="card-description">${tool.description || "No description available."}</p>
@@ -112,14 +112,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       // --- Logika Tombol ---
       card.querySelector(".btn-details").addEventListener("click", () => {
         // Menggunakan nama alat untuk navigasi ke ToolDetail
-        window.location.href = `../ToolDetail/index.html?tool=${encodeURIComponent(tool.name)}`;
+        window.location.href = `/Tugas01/ToolDetail/index.html?tool=${encodeURIComponent(tool.name)}`;
       });
 
       const bookButton = card.querySelector(".btn-book");
       if (isAvailable) {
         bookButton.addEventListener("click", () => {
           // Menggunakan nama alat untuk navigasi ke ToolBooking
-          window.location.href = `../ToolBooking/index.html?tool=${encodeURIComponent(tool.name)}`;
+          window.location.href = `/Tugas01/ToolBooking/index.html?tool=${encodeURIComponent(tool.name)}`;
         });
       } else {
         // Styling untuk tombol yang tidak tersedia

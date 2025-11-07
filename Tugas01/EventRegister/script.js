@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (attending === 'no') {
       alert("Thanks for letting us know!");
-      window.location.href = "../Event/index.html"; // Kembali ke daftar event
+      window.location.href = "/Tugas01/Event/index.html"; // Kembali ke daftar event
       return;
     }
 

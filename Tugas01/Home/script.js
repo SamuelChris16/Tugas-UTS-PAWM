@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
           e.preventDefault();
           localStorage.removeItem("loggedInUser"); // Hapus data login
           alert("Anda telah berhasil keluar (Logout).");
-          window.location.href = "../Home/index.html"; 
+          window.location.href = "/Tugas01/Home/index.html"; 
         });
       }
     } else {
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     card.addEventListener("click", () => {
       const eventName = card.dataset.eventName;
       if (eventName) {
-        window.location.href = `../EventDetail/index.html?event=${encodeURIComponent(eventName)}`;
+        window.location.href = `/Tugas01/EventDetail/index.html?event=${encodeURIComponent(eventName)}`;
       }
     });
   });
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.stopPropagation(); 
       const toolName = e.target.dataset.toolName;
       if (toolName) {
-        window.location.href = `../ToolDetail/index.html?tool=${encodeURIComponent(toolName)}`;
+        window.location.href = `/Tugas01/ToolDetail/index.html?tool=${encodeURIComponent(toolName)}`;
       }
     });
   });
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const toolName = e.target.dataset.toolName;
       if (toolName) {
         // Navigasi ini akan diproteksi di halaman ToolBooking dan ToolDetail
-        window.location.href = `../ToolBooking/index.html?tool=${encodeURIComponent(toolName)}`;
+        window.location.href = `/Tugas01/ToolBooking/index.html?tool=${encodeURIComponent(toolName)}`;
       }
     });
   });

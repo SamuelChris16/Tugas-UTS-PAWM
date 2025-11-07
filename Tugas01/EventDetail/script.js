@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
           e.preventDefault();
           localStorage.removeItem("loggedInUser");
           alert("Anda telah berhasil keluar (Logout).");
-          window.location.href = "../Home/index.html"; 
+          window.location.href = "/Tugas01/Home/index.html"; 
         });
       }
     } else {
@@ -191,10 +191,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const loggedInUser = localStorage.getItem("loggedInUser");
       
       if (loggedInUser) {
-        window.location.href = `../EventRegister/index.html?event=${encodeURIComponent(eventData.name)}`;
+        window.location.href = `/Tugas01/EventRegister/index.html?event=${encodeURIComponent(eventData.name)}`;
       } else {
         alert("Anda harus login untuk mendaftar acara ini!");
-        window.location.href = "../Login/index.html";
+        window.location.href = "/Tugas01/Login/index.html";
       }
     });
     // === BATAS LOGIC PROTEKSI ===

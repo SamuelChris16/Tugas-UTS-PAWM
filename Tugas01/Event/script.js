@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
           localStorage.removeItem("loggedInUser"); // Hapus data login
           alert("Anda telah berhasil keluar (Logout).");
           // Redirect ke Home
-          window.location.href = "../Home/index.html"; 
+          window.location.href = "/Tugas01/Home/index.html"; 
         });
       }
     } else {
@@ -220,14 +220,14 @@ document.addEventListener("DOMContentLoaded", () => {
       // 1. Ambil tombol Details
       const detailsButton = card.querySelector(".btn-details");
       detailsButton.addEventListener("click", () => {
-        window.location.href = `../EventDetail/index.html?event=${encodeURIComponent(event.name)}`;
+        window.location.href = `/Tugas01/EventDetail/index.html?event=${encodeURIComponent(event.name)}`;
       });
 
       // 2. Ambil tombol Register (BARU)
       const registerButton = card.querySelector(".btn-register");
       registerButton.addEventListener("click", () => {
         // Arahkan ke halaman registrasi baru (akan diproteksi di EventDetail/script.js)
-        window.location.href = `../EventRegister/index.html?event=${encodeURIComponent(event.name)}`;
+        window.location.href = `/Tugas01/EventRegister/index.html?event=${encodeURIComponent(event.name)}`;
       });
     });
   }

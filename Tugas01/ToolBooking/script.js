@@ -1,101 +1,75 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // === FUNGSI PROTEKSI LOGIN (HARUS ADA DI PALING ATAS) ===
-  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-  if (!loggedInUser) {
-    alert("Anda harus login untuk mengakses formulir booking alat.");
-    window.location.href = "../Login/index.html";
-    return; // Hentikan eksekusi script jika belum login
-  }
-  // === BATAS PROTEKSI LOGIN ===
-
 // === Konfigurasi Supabase ===
 const SUPABASE_URL = "https://rbjijrdsyvudbpefovoc.supabase.co";
 const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJiamlqcmRzeXZ1ZGJwZWZvdm9jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0OTA3MzIsImV4cCI6MjA3ODA2NjczMn0.mOFA2ni0VRbLk1CWS_80LBRHCVdtLWQ8ouOKqrkZLtU";
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const client = supabase; // Gunakan alias client untuk konsistensi
 
 document.addEventListener("DOMContentLoaded", async () => {
+  // === 1. FUNGSI PROTEKSI LOGIN ===
+  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  if (!loggedInUser) {
+    alert("Anda harus login untuk mengakses formulir booking alat.");
+    window.location.href = "../Login/index.html";
+    return;
+  }
+
+  // === 2. AMBIL ELEMEN & PARAMETER URL ===
   const bookingForm = document.getElementById("bookingForm");
   const bookingHeader = document.getElementById("booking-header");
   const fileInput = document.getElementById("file-upload");
   const fileNameDisplay = document.getElementById("file-name-display");
 
-  // Ambil parameter dari URL
   const params = new URLSearchParams(window.location.search);
   const toolId = params.get("id");
   const toolName = params.get("tool");
 
-  if (!toolId || !toolName) {
+  if (!toolName) {
     alert("No tool selected. Please choose a tool first.");
     window.location.href = "../Facility/index.html";
     return;
   }
 
-  // 🧾 Cek data alat dari database Supabase
-  const { data: toolData, error: toolError } = await supabase
-    .from("tools")
-    .select("id_tools, name, quantity")
-    .eq("id_tools", toolId)
-    .single();
+  // PERMINTAAN #1: Ganti Judul
+  bookingHeader.textContent = `${toolName}'s Booking`;
 
-    // Ambil semua data dari form
-    const firstName = document.getElementById("first-name").value;
-    const lastName = document.getElementById("last-name").value;
-    const email = document.getElementById("email").value;
-    const studentNumber = document.getElementById("student-number").value;
-    const campus = document.querySelector('input[name="campus"]:checked').value;
-    const phone = document.getElementById("phone").value;
-    const file = fileInput.files[0];
+  let toolData = null;
 
-    if (!file) {
-        alert("Please upload the letter of responsibility!");
-        return;
+  try {
+    // Cari data alat di Supabase
+    let query = client
+      .from("tools")
+      .select("id_tools, name, quantity")
+      .maybeSingle();
+
+    if (toolId) {
+      // Prioritas: cari berdasarkan ID
+      query = query.eq("id_tools", toolId);
+    } else {
+      // Fallback: cari berdasarkan Nama
+      query = query.eq("name", toolName);
     }
 
-    // --- LOGIKA PENGURANGAN KUANTITAS (BARU) ---
-    // 1. Cari index alat yang di-booking
-    const toolIndex = allTools.findIndex(t => t.name === toolToBook);
+    const { data, error } = await query;
     
-    if (toolIndex !== -1 && allTools[toolIndex].quantity > 0) {
-      // 2. Kurangi kuantitasnya
-      allTools[toolIndex].quantity -= 1;
-      
-      // 3. Simpan kembali database yang sudah diupdate ke localStorage
-      localStorage.setItem("labTools", JSON.stringify(allTools));
-      
-    } else {
-      // Ini sebagai pengaman ganda jika terjadi race condition
-      alert("Failed to book. Tool might have just become unavailable.");
+    if (error) throw error;
+    if (!data) throw new Error("Tool data not found.");
+
+    toolData = data;
+
+    if (toolData.quantity === 0) {
+      alert(`The tool '${toolName}' is currently unavailable (quantity: 0).`);
       window.location.href = "../Facility/index.html";
       return;
     }
-    // --- BATAS LOGIKA BARU ---
-
-    // Buat objek pendaftaran
-    const newBooking = {
-      toolName: toolToBook,
-      firstName,
-      lastName,
-      email,
-      studentNumber,
-      campus,
-      phone,
-      fileName: file.name,
-      username: loggedInUser.username, // Tambahkan username dari loggedInUser
-      timestamp: new Date().toISOString()
-    };
-
-    // Simpan ke localStorage (untuk catatan booking)
-    const bookings = JSON.parse(localStorage.getItem("toolBookings")) || [];
-    bookings.push(newBooking);
-    localStorage.setItem("toolBookings", JSON.stringify(bookings));
-
-    // Beri notifikasi dan redirect
-    alert(`Booking for ${toolToBook} successful! Thank you, ${firstName}.`);
-    window.location.href = "../Facility/index.html"; // Kembali ke daftar alat
-  });
-
-  // 3. Tampilkan nama file yang di-upload
+  } catch (toolError) {
+    console.error("Error fetching tool data:", toolError.message);
+    alert(`Failed to load tool data for ${toolName}. Please try again later.`);
+    window.location.href = "../Facility/index.html";
+    return;
+  }
+  
+  // === 3. EVENT LISTENER FILE UPLOAD ===
   fileInput.addEventListener("change", () => {
     if (fileInput.files.length > 0) {
       fileNameDisplay.textContent = fileInput.files[0].name;
@@ -104,7 +78,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // === Submit handler ===
+  // === 4. SUBMIT HANDLER ===
   bookingForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -116,19 +90,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     const phone = document.getElementById("phone").value.trim();
     const pdfFile = document.getElementById("file-upload").files[0];
 
-    if (!pdfFile) {
+    // Check pre-conditions again
+    if (!toolData || toolData.quantity <= 0) {
+        alert("Booking failed: Tool is currently unavailable.");
+        window.location.href = "../Facility/index.html";
+        return;
+    }
+    
+    if (!pdfFile || pdfFile.type !== "application/pdf") {
       alert("Please upload your responsibility letter (PDF file)!");
       return;
     }
-
-    if (pdfFile.type !== "application/pdf") {
-      alert("Only PDF files are allowed!");
-      return;
-    }
+    
+    const toolIdToBook = toolData.id_tools;
 
     try {
-      // === 1️⃣ Upload PDF ke Supabase Storage ===
-      const filePath = `${toolId}/${Date.now()}_${pdfFile.name}`;
+      // 1) Upload PDF ke Supabase Storage
+      const filePath = `${toolIdToBook}/${Date.now()}_${pdfFile.name}`;
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from("borrow-pdfs")
         .upload(filePath, pdfFile);
@@ -145,12 +123,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         .getPublicUrl(filePath);
       const pdf_url = publicUrlData.publicUrl;
 
-      // === 2️⃣ Simpan data ke tabel borrow_requests ===
+      // 2) Simpan data ke tabel borrow_requests
       const { data: insertData, error: insertError } = await supabase
         .from("borrow_requests")
         .insert([
           {
-            id_tools: toolId,
+            id_tools: toolIdToBook,
             first_name,
             last_name,
             email,
@@ -169,14 +147,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
 
-      console.log("Booking saved:", insertData);
-
-      // === 3️⃣ Kurangi stok alat di tabel tools ===
+      // 3) Kurangi stok alat di tabel tools
       const newQuantity = Math.max(toolData.quantity - 1, 0);
       const { error: updateError } = await supabase
         .from("tools")
         .update({ quantity: newQuantity })
-        .eq("id_tools", toolId);
+        .eq("id_tools", toolIdToBook);
 
       if (updateError) {
         console.error("Update Error:", updateError);

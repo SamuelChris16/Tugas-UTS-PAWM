@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tool Booking - Metaverse Lab ITB</title>
 
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css" />
   <link
     rel="stylesheet"
@@ -40,20 +39,12 @@
     </div>
 </header>
 
-  <!-- 🧾 MAIN CONTENT -->
   <main class="container">
     <div class="booking-container">
       
-      <!-- Judul Dinamis (otomatis dari Supabase) -->
       <h1 class="booking-header" id="booking-header">Tool's Booking</h1>
-      <p class="tool-info" id="tool-info">
-        Loading tool information...
-      </p>
-
-      <!-- FORM PEMINJAMAN -->
       <form class="booking-form" id="bookingForm">
         
-        <!-- Nama -->
         <div class="form-group">
           <label>Name</label>
           <div class="form-row">
@@ -66,19 +57,16 @@
           </div>
         </div>
 
-        <!-- Email -->
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" id="email" placeholder="example@itb.ac.id" required />
         </div>
 
-        <!-- Student Number -->
         <div class="form-group">
           <label for="student-number">Student Number</label>
           <input type="text" id="student-number" placeholder="e.g. 18221001" required />
         </div>
         
-        <!-- Campus -->
         <div class="form-group">
           <label>Campus</label>
           <div class="radio-group">
@@ -100,13 +88,11 @@
           </div>
         </div>
 
-        <!-- Nomor Telepon -->
         <div class="form-group">
           <label for="phone">Phone Number</label>
           <input type="tel" id="phone" placeholder="e.g. 081234567890" required />
         </div>
 
-        <!-- Upload Surat Pertanggungjawaban -->
         <div class="form-group">
           <label for="file-upload">Letter of Responsibility Upload</label>
           <a
@@ -123,13 +109,11 @@
           <input type="file" id="file-upload" accept=".pdf" required />
         </div>
 
-        <!-- Tombol Submit -->
         <button type="submit" class="btn-submit">Book</button>
       </form>
     </div>
   </main>
 
-  <!-- ✅ SUPABASE + SCRIPT -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
 </body>

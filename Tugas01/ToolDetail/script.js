@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         // fallback: anggap filename dan prefix /Tugas01/assets/
-        out.push(`/Tugas01/assets/${u}`);
+        out.push(`/assets/${u}`);
       }
       return out;
     }
@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     bookBtn.addEventListener("click", () => {
       const idToSend = tool.id_tools;
       if (!idToSend) return alert("Tool ID not available.");
-      window.location.href = `/Tugas01/ToolBooking/index.html?id=${encodeURIComponent(idToSend)}&tool=${encodeURIComponent(tool.name)}`;
+      window.location.href = `/ToolBooking/index.html?id=${encodeURIComponent(idToSend)}&tool=${encodeURIComponent(tool.name)}`;
     });
 
   } catch (err) {

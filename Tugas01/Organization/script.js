@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
           e.preventDefault();
           localStorage.removeItem("loggedInUser"); // Hapus data login
           alert("Anda telah berhasil keluar (Logout).");
-          window.location.href = "/Tugas01/Home/index.html"; 
+          window.location.href = "/index.html"; 
         });
       }
     } else {

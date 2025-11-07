@@ -34,7 +34,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     );
     
     alert(`Welcome back, ${user.username}!`);
-    window.location.href = "/Tugas01/Home/index.html";
+    window.location.href = "/index.html";
   } else {
     alert("Invalid username or password!");
   }

@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
           e.preventDefault();
           localStorage.removeItem("loggedInUser");
           alert("Anda telah berhasil keluar (Logout).");
-          window.location.href = "../Home/index.html"; 
+          window.location.href = "/index.html"; 
         });
       }
     }
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (attending === 'no') {
       alert("Thanks for letting us know!");
-      window.location.href = "/Tugas01/Event/index.html"; // Kembali ke daftar event
+      window.location.href = "/Event/index.html"; // Kembali ke daftar event
       return;
     }
 

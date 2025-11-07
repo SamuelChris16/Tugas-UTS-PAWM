@@ -4,44 +4,57 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Facility - Metaverse Lab ITB</title>
+
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
 </head>
 <body>
 
-<header class="navbar">
-  <div class="logo">
-    <img src="../assets/LogoLab.png" alt="Logo Metaverse Lab" />
-  </div>
-  <nav>
-    <ul class="nav-links">
-      <li><a href="../Home/index.html">Home</a></li>
-      <li><a href="../Event/index.html">Event</a></li>
-      <li><a href="index.html" class="active">Facility</a></li> <li><a href="../Organization/index.html">Organization</a></li>
-      <li><a href="../Project/index.html">Project</a></li>
-    </ul>
-  </nav>
-  <div class="nav-auth">
-    <a href="../Login/index.html" class="login-btn">LOGIN</a>
-    <a href="../Register/index.html" class="register-btn">REGISTER</a>
-    <a href="#" class="settings-btn"><i class="fa-solid fa-gear"></i></a>
-  </div>
-</header>
+  <!-- 🧭 NAVBAR -->
+  <header class="navbar">
+    <div class="logo">
+      <img src="../assets/LogoLab.png" alt="Logo Metaverse Lab" />
+    </div>
 
+    <nav>
+      <ul class="nav-links">
+        <li><a href="../Home/index.html">Home</a></li>
+        <li><a href="../Event/index.html">Event</a></li>
+        <li><a href="index.html" class="active">Facility</a></li>
+        <li><a href="../Organization/index.html">Organization</a></li>
+        <li><a href="../Project/index.html">Project</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-auth">
+      <a href="../Login/index.html" class="login-btn">LOGIN</a>
+      <a href="../Register/index.html" class="register-btn">REGISTER</a>
+      <a href="#" class="settings-btn"><i class="fa-solid fa-gear"></i></a>
+    </div>
+  </header>
+
+  <!-- 🧩 MAIN CONTENT -->
   <main class="facility-container">
     
+    <!-- Filter/Search Section -->
     <section class="filter-bar">
       <h1>Explore Metaverse Lab Facility!</h1>
       <div class="filter-inputs">
         <div class="search-box">
           <i class="fa-solid fa-search"></i>
-          <input type="text" id="searchInput" placeholder="Search Tools...">
+          <input type="text" id="searchInput" placeholder="Search tools..." />
         </div>
       </div>
     </section>
 
+    <!-- Main Content Area -->
     <div class="content-area">
       
+      <!-- Sidebar Filter -->
       <aside class="category-sidebar">
         <h3>Category</h3>
         <button class="category-btn active" data-category="all">All Catalog</button>
@@ -50,11 +63,17 @@
         <button class="category-btn" data-category="oldest">Oldest Added</button>
       </aside>
 
+      <!-- Grid List Tools -->
       <section class="tool-grid" id="toolGrid">
-        </section>
+        <!-- Tool cards from Supabase will be rendered here dynamically -->
+      </section>
+
     </div>
   </main>
 
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
+
 </body>
 </html>

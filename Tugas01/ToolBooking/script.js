@@ -1,104 +1,111 @@
-document.addEventListener("DOMContentLoaded", () => {
+// === Konfigurasi Supabase ===
+const SUPABASE_URL = "https://rbjijrdsyvudbpefovoc.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJiamlqcmRzeXZ1ZGJwZWZvdm9jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0OTA3MzIsImV4cCI6MjA3ODA2NjczMn0.mOFA2ni0VRbLk1CWS_80LBRHCVdtLWQ8ouOKqrkZLtU";
+const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+document.addEventListener("DOMContentLoaded", async () => {
   const bookingForm = document.getElementById("bookingForm");
   const bookingHeader = document.getElementById("booking-header");
   const fileInput = document.getElementById("file-upload");
   const fileNameDisplay = document.getElementById("file-name-display");
 
-  let toolToBook = "Unknown Tool";
-  let allTools = JSON.parse(localStorage.getItem("labTools")) || [];
-  let toolData = null;
-
-  // 1. Ambil nama alat dari URL dan validasi ketersediaan
+  // Ambil parameter dari URL
   const params = new URLSearchParams(window.location.search);
-  const toolName = params.get('tool');
+  const toolId = params.get("id");
+  const toolName = params.get("tool");
 
-  if (toolName) {
-    toolToBook = toolName;
-    bookingHeader.textContent = `Booking for: ${toolName}`;
-    
-    // Cari data alat di database
-    toolData = allTools.find(t => t.name === toolToBook);
-
-    // PENTING: Cek ketersediaan
-    if (!toolData || toolData.quantity === 0) {
-      alert("Sorry, this tool is currently unavailable or doesn't exist.");
-      // Redirect kembali ke halaman facility jika tidak tersedia
-      window.location.href = "../Facility/index.html";
-      return; // Hentikan eksekusi script
-    }
-
-  } else {
-    alert("No tool selected for booking.");
+  if (!toolId || !toolName) {
+    alert("No tool selected. Please choose a tool first.");
     window.location.href = "../Facility/index.html";
     return;
   }
 
-  // 2. Handle submit form
-  bookingForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+  bookingHeader.textContent = `Booking for: ${toolName}`;
 
-    // Ambil semua data dari form
-    const firstName = document.getElementById("first-name").value;
-    const lastName = document.getElementById("last-name").value;
-    const email = document.getElementById("email").value;
-    const studentNumber = document.getElementById("student-number").value;
-    const campus = document.querySelector('input[name="campus"]:checked').value;
-    const phone = document.getElementById("phone").value;
-    const file = fileInput.files[0];
-
-    if (!file) {
-        alert("Please upload the letter of responsibility!");
-        return;
-    }
-
-    // --- LOGIKA PENGURANGAN KUANTITAS (BARU) ---
-    // 1. Cari index alat yang di-booking
-    const toolIndex = allTools.findIndex(t => t.name === toolToBook);
-    
-    if (toolIndex !== -1 && allTools[toolIndex].quantity > 0) {
-      // 2. Kurangi kuantitasnya
-      allTools[toolIndex].quantity -= 1;
-      
-      // 3. Simpan kembali database yang sudah diupdate ke localStorage
-      localStorage.setItem("labTools", JSON.stringify(allTools));
-      
-    } else {
-      // Ini sebagai pengaman ganda jika terjadi race condition
-      alert("Failed to book. Tool might have just become unavailable.");
-      window.location.href = "../Facility/index.html";
-      return;
-    }
-    // --- BATAS LOGIKA BARU ---
-
-    // Buat objek pendaftaran
-    const newBooking = {
-      toolName: toolToBook,
-      firstName,
-      lastName,
-      email,
-      studentNumber,
-      campus,
-      phone,
-      fileName: file.name,
-      timestamp: new Date().toISOString()
-    };
-
-    // Simpan ke localStorage (untuk catatan booking)
-    const bookings = JSON.parse(localStorage.getItem("toolBookings")) || [];
-    bookings.push(newBooking);
-    localStorage.setItem("toolBookings", JSON.stringify(bookings));
-
-    // Beri notifikasi dan redirect
-    alert(`Booking for ${toolToBook} successful! Thank you, ${firstName}.`);
-    window.location.href = "../Facility/index.html"; // Kembali ke daftar alat
-  });
-
-  // 3. Tampilkan nama file yang di-upload
+  // === Event: tampilkan nama file PDF ===
   fileInput.addEventListener("change", () => {
     if (fileInput.files.length > 0) {
       fileNameDisplay.textContent = fileInput.files[0].name;
     } else {
       fileNameDisplay.innerHTML = "Browse Files<br>Drag and drop files here";
+    }
+  });
+
+  // === Submit handler ===
+  bookingForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const first_name = document.getElementById("first-name").value.trim();
+    const last_name = document.getElementById("last-name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const student_number = document.getElementById("student-number").value.trim();
+    const campus = document.querySelector('input[name="campus"]:checked').value;
+    const phone = document.getElementById("phone").value.trim();
+    const pdfFile = document.getElementById("file-upload").files[0];
+
+    if (!pdfFile || pdfFile.type !== "application/pdf") {
+      alert("Please upload a valid PDF file!");
+      return;
+    }
+
+    try {
+      // === 1️⃣ Upload file ke storage Supabase ===
+      const fileName = `${Date.now()}_${pdfFile.name}`;
+      const { error: uploadError } = await client.storage
+        .from("borrow-pdfs")
+        .upload(fileName, pdfFile, { cacheControl: "3600", upsert: false });
+
+      if (uploadError) {
+        alert("Failed to upload file: " + uploadError.message);
+        return;
+      }
+
+      const { data: publicUrlData } = client.storage
+        .from("borrow-pdfs")
+        .getPublicUrl(fileName);
+
+      const pdf_url = publicUrlData.publicUrl;
+
+      // === 2️⃣ Simpan ke tabel borrow_requests ===
+      const { error: insertError } = await client.from("borrow_requests").insert([
+        {
+          id_tools: toolId,
+          first_name,
+          last_name,
+          email,
+          student_number,
+          campus,
+          phone,
+          pdf_url,
+          status: "pending",
+        },
+      ]);
+
+      if (insertError) {
+        console.error(insertError);
+        alert("Error saving booking: " + insertError.message);
+        return;
+      }
+
+      // === 3️⃣ Kurangi quantity alat di tabel tools ===
+      const { data: toolData } = await client
+        .from("tools")
+        .select("quantity")
+        .eq("id", toolId)
+        .single();
+
+      if (toolData && toolData.quantity > 0) {
+        await client
+          .from("tools")
+          .update({ quantity: toolData.quantity - 1 })
+          .eq("id", toolId);
+      }
+
+      alert(`Booking for ${toolName} successful!`);
+      window.location.href = "../Facility/index.html";
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      alert("Unexpected error: " + err.message);
     }
   });
 });

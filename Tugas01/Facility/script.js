@@ -1,80 +1,32 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // === FUNGSI UNTUK MENGAMBIL/INISIALISASI DATABASE ALAT ===
-  function getToolsDatabase() {
-    let toolsData = JSON.parse(localStorage.getItem("labTools"));
+// === KONFIGURASI SUPABASE ===
+const SUPABASE_URL = "https://rbjijrdsyvudbpefovoc.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJiamlqcmRzeXZ1ZGJwZWZvdm9jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0OTA3MzIsImV4cCI6MjA3ODA2NjczMn0.mOFA2ni0VRbLk1CWS_80LBRHCVdtLWQ8ouOKqrkZLtU";
+const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // 2. Jika tidak ada (kunjungan pertama), buat database default
-    if (!toolsData) {
-      console.log("Initializing tools database in localStorage...");
-      
-      const defaultTools = [
-        {
-           name: "Oculus Quest 2",
-           quantity: 5,
-           category: "available",
-           imgUrl: "../assets/oculus.jpg",
-           // DESKRIPSI DITAMBAHKAN
-           description: "A standalone VR headset with 6DOF tracking for a fully immersive experience."
-        },
-        {
-          name: "High-Performance PC",
-          quantity: 10,
-          category: "oldest",
-          imgUrl: "../assets/HighPerformancePC.webp",
-          // DESKRIPSI DITAMBAHKAN
-          description: "Powerful PC built for high-end VR development and rendering complex scenes."
-        },
-        {
-          name: "3D Scanner",
-          quantity: 2,
-          category: "latest",
-          imgUrl: "../assets/3dScanner.webp",
-          // DESKRIPSI DITAMBAHKAN
-          description: "Handheld 3D scanner to capture real-world objects into digital 3D models."
-        },
-        {
-          name: "Motion Capture Suit",
-          quantity: 1,
-          category: "latest",
-          imgUrl: "../assets/MotionCaptureSuit.webp",
-          // DESKRIPSI DITAMBAHKAN
-          description: "Full-body tracking suit to bring real-world movements into virtual reality."
-        },
-        {
-          name: "VR Treadmill", 
-          quantity: 0,
-          category: "oldest",
-          imgUrl: "../assets/VRTreadmill.webp",
-          // DESKRIPSI DITAMBAHKAN
-          description: "Omni-directional treadmill that allows you to walk and run in any direction in VR."
-        },
-        {
-          name: "Haptic Gloves",
-          quantity: 3,
-          category: "oldest",
-          imgUrl: "../assets/HapticGloves.jpg",
-          // DESKRIPSI DITAMBAHKAN
-          description: "Feel the virtual world with high-fidelity tactile feedback for your hands."
-        },
-      ];
-      
-      localStorage.setItem("labTools", JSON.stringify(defaultTools));
-      toolsData = defaultTools;
-    }
-    
-    return toolsData;
-  }
-
-  // === Ambil data dari database (localStorage) ===
-  const allTools = getToolsDatabase();
-
-  // === Elemen DOM ===
+document.addEventListener("DOMContentLoaded", async () => {
+  // === Ambil elemen DOM ===
   const toolGrid = document.getElementById("toolGrid");
   const searchInput = document.getElementById("searchInput");
   const categoryButtons = document.querySelectorAll(".category-btn");
   let activeCategory = "all";
 
-  // === FUNGSI UNTUK MERENDER ALAT KE LAYAR (DIPERBARUI) ===
+  // === Variabel global data alat ===
+  let allTools = [];
+
+  // === 1️⃣ AMBIL DATA DARI SUPABASE ===
+  async function fetchTools() {
+    try {
+      const { data, error } = await client.from("tools").select("*").order("name");
+      if (error) throw error;
+      allTools = data || [];
+      filterTools(); // render pertama kali
+    } catch (err) {
+      console.error("Error fetching tools:", err.message);
+      toolGrid.innerHTML = "<p>Failed to load tools. Please try again later.</p>";
+    }
+  }
+
+  // === 2️⃣ FUNGSI UNTUK MERENDER ALAT ===
   function renderTools(tools) {
     if (!toolGrid) return;
     toolGrid.innerHTML = "";
@@ -82,87 +34,80 @@ document.addEventListener("DOMContentLoaded", () => {
       toolGrid.innerHTML = "<p>No tools found matching your criteria.</p>";
       return;
     }
-    tools.forEach(tool => {
+
+    tools.forEach((tool) => {
       const card = document.createElement("div");
       card.className = "tool-card";
-      
-      // --- innerHTML DIPERBARUI DENGAN DESKRIPSI ---
       card.innerHTML = `
-        <div class="card-img" style="background-image: url('${tool.imgUrl}')"></div>
+        <div class="card-img" style="background-image: url('${tool.image_url || "../assets/default.png"}')"></div>
         <div class="card-body">
           <h4>${tool.name}</h4>
-          
-          <p class="card-description">${tool.description}</p>
-          
+          <p class="card-description">${tool.description || "No description available."}</p>
           <p class="card-quantity">Quantity: ${tool.quantity}</p>
           <div class="card-buttons">
             <button class="btn-details">Details</button>
-            <button class="btn-book">Book Now</button>
+            <button class="btn-book" ${tool.quantity <= 0 ? "disabled" : ""}>
+              ${tool.quantity > 0 ? "Book Now" : "Unavailable"}
+            </button>
           </div>
         </div>
       `;
-      // --- BATAS PERUBAHAN ---
-      
       toolGrid.appendChild(card);
 
-      // --- Logika Tombol (Sudah benar) ---
-      const detailsButton = card.querySelector(".btn-details");
-      detailsButton.addEventListener("click", () => {
-        window.location.href = `../ToolDetail/index.html?tool=${encodeURIComponent(tool.name)}`;
+      // === EVENT DETAIL ===
+      card.querySelector(".btn-details").addEventListener("click", () => {
+        window.location.href = `../ToolDetail/index.html?id=${tool.id}`;
       });
 
+      // === EVENT BOOK ===
       const bookButton = card.querySelector(".btn-book");
-
-      if (tool.quantity === 0) {
-        bookButton.textContent = "Unavailable";
-        bookButton.disabled = true;
-        bookButton.style.backgroundColor = "#555"; 
-        bookButton.style.cursor = "not-allowed";
-      } else {
+      if (tool.quantity > 0) {
         bookButton.addEventListener("click", () => {
-          window.location.href = `../ToolBooking/index.html?tool=${encodeURIComponent(tool.name)}`;
+          // Arahkan ke halaman ToolBooking dengan id & nama
+          window.location.href = `../ToolBooking/index.html?id=${tool.id}&tool=${encodeURIComponent(tool.name)}`;
         });
+      } else {
+        // Styling untuk unavailable
+        bookButton.disabled = true;
+        bookButton.style.backgroundColor = "#555";
+        bookButton.style.cursor = "not-allowed";
       }
     });
   }
 
-  // === FUNGSI UTAMA UNTUK FILTER ===
+  // === 3️⃣ FILTER BERDASARKAN SEARCH & CATEGORY ===
   function filterTools() {
-    if (!searchInput) return;
-    const searchTerm = searchInput.value.toLowerCase();
-    
-    const currentToolsData = getToolsDatabase(); 
-    
-    const filteredTools = currentToolsData.filter(tool => {
-      let categoryMatch = false;
-      if (activeCategory === "all") {
-        categoryMatch = true;
-      } else if (activeCategory === "available") {
-        categoryMatch = tool.quantity > 0;
-      } else {
-        categoryMatch = tool.category === activeCategory;
-      }
-      
-      // Update filter agar mencari di deskripsi juga
-      const searchMatch = tool.name.toLowerCase().includes(searchTerm) || 
-                          (tool.description && tool.description.toLowerCase().includes(searchTerm));
-                          
+    const searchTerm = searchInput?.value?.toLowerCase() || "";
+    const filteredTools = allTools.filter((tool) => {
+      const categoryMatch =
+        activeCategory === "all"
+          ? true
+          : activeCategory === "available"
+          ? tool.quantity > 0
+          : tool.category?.toLowerCase() === activeCategory.toLowerCase();
+
+      const searchMatch =
+        tool.name?.toLowerCase().includes(searchTerm) ||
+        tool.description?.toLowerCase().includes(searchTerm);
+
       return categoryMatch && searchMatch;
     });
+
     renderTools(filteredTools);
   }
 
-  // === EVENT LISTENERS (Filter) ===
-  categoryButtons.forEach(button => {
+  // === 4️⃣ EVENT LISTENER UNTUK CATEGORY & SEARCH ===
+  categoryButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      categoryButtons.forEach(btn => btn.classList.remove("active"));
+      categoryButtons.forEach((btn) => btn.classList.remove("active"));
       button.classList.add("active");
       activeCategory = button.getAttribute("data-category");
       filterTools();
     });
   });
+
   if (searchInput) searchInput.addEventListener("input", filterTools);
-  
-  // === INISIALISASI HALAMAN ===
-  filterTools();
+
+  // === 5️⃣ INISIALISASI: AMBIL DATA DARI SUPABASE ===
+  await fetchTools();
 });

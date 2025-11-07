@@ -1,67 +1,67 @@
 document.addEventListener("DOMContentLoaded", () => {
   // === FUNGSI UNTUK MENGAMBIL/INISIALISASI DATABASE ALAT ===
   function getToolsDatabase() {
-    // 1. Coba ambil data dari localStorage
     let toolsData = JSON.parse(localStorage.getItem("labTools"));
 
     // 2. Jika tidak ada (kunjungan pertama), buat database default
     if (!toolsData) {
       console.log("Initializing tools database in localStorage...");
       
-      // --- INI BAGIAN YANG SAYA SESUAIKAN ---
-      // Saya gunakan link YouTube Anda (bagus!) dan link lain yang PASTI MUNCUL.
-      // Link dari digitalstorm, d3f, dan deusens diblokir oleh server mereka.
       const defaultTools = [
         {
            name: "Oculus Quest 2",
            quantity: 5,
            category: "available",
-           imgUrl: "../assets/oculus.jpg"
-          },
+           imgUrl: "../assets/oculus.jpg",
+           // DESKRIPSI DITAMBAHKAN
+           description: "A standalone VR headset with 6DOF tracking for a fully immersive experience."
+        },
         {
           name: "High-Performance PC",
           quantity: 10,
           category: "oldest",
-          // Menggunakan link yang bisa tampil (bukan digitalstorm):
-          imgUrl: "../assets/HighPerformancePC.webp"
+          imgUrl: "../assets/HighPerformancePC.webp",
+          // DESKRIPSI DITAMBAHKAN
+          description: "Powerful PC built for high-end VR development and rendering complex scenes."
         },
         {
           name: "3D Scanner",
           quantity: 2,
           category: "latest",
-          // Menggunakan link yang bisa tampil:
-          imgUrl: "../assets/3dScanner.webp"
+          imgUrl: "../assets/3dScanner.webp",
+          // DESKRIPSI DITAMBAHKAN
+          description: "Handheld 3D scanner to capture real-world objects into digital 3D models."
         },
         {
           name: "Motion Capture Suit",
           quantity: 1,
           category: "latest",
-          // Menggunakan link yang bisa tampil (bukan deusens):
-          imgUrl: "../assets/MotionCaptureSuit.webp"
+          imgUrl: "../assets/MotionCaptureSuit.webp",
+          // DESKRIPSI DITAMBAHKAN
+          description: "Full-body tracking suit to bring real-world movements into virtual reality."
         },
         {
-          // Menyesuaikan nama sesuai daftar Anda:
           name: "VR Treadmill", 
           quantity: 0,
           category: "oldest",
-          // Link Anda (unboundxr) juga diblokir, saya gunakan yang ini:
-          imgUrl: "../assets/VRTreadmill.webp"
+          imgUrl: "../assets/VRTreadmill.webp",
+          // DESKRIPSI DITAMBAHKAN
+          description: "Omni-directional treadmill that allows you to walk and run in any direction in VR."
         },
         {
           name: "Haptic Gloves",
           quantity: 3,
           category: "oldest",
-          // Link Anda (assets.rbl.ms) juga diblokir, saya gunakan yang ini:
-          imgUrl: "../assets/HapticGloves.jpg"
+          imgUrl: "../assets/HapticGloves.jpg",
+          // DESKRIPSI DITAMBAHKAN
+          description: "Feel the virtual world with high-fidelity tactile feedback for your hands."
         },
       ];
-      // --- BATAS PENYESUAIAN ---
       
       localStorage.setItem("labTools", JSON.stringify(defaultTools));
       toolsData = defaultTools;
     }
     
-    // 3. Kembalikan data yang ada
     return toolsData;
   }
 
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const categoryButtons = document.querySelectorAll(".category-btn");
   let activeCategory = "all";
 
-  // === FUNGSI UNTUK MERENDER ALAT KE LAYAR ===
+  // === FUNGSI UNTUK MERENDER ALAT KE LAYAR (DIPERBARUI) ===
   function renderTools(tools) {
     if (!toolGrid) return;
     toolGrid.innerHTML = "";
@@ -86,10 +86,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = document.createElement("div");
       card.className = "tool-card";
       
+      // --- innerHTML DIPERBARUI DENGAN DESKRIPSI ---
       card.innerHTML = `
         <div class="card-img" style="background-image: url('${tool.imgUrl}')"></div>
         <div class="card-body">
           <h4>${tool.name}</h4>
+          
+          <p class="card-description">${tool.description}</p>
+          
           <p class="card-quantity">Quantity: ${tool.quantity}</p>
           <div class="card-buttons">
             <button class="btn-details">Details</button>
@@ -97,9 +101,11 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
       `;
+      // --- BATAS PERUBAHAN ---
       
       toolGrid.appendChild(card);
 
+      // --- Logika Tombol (Sudah benar) ---
       const detailsButton = card.querySelector(".btn-details");
       detailsButton.addEventListener("click", () => {
         window.location.href = `../ToolDetail/index.html?tool=${encodeURIComponent(tool.name)}`;
@@ -107,18 +113,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const bookButton = card.querySelector(".btn-book");
 
-      // --- LOGIKA TOMBOL BOOK (BARU) ---
       if (tool.quantity === 0) {
         bookButton.textContent = "Unavailable";
         bookButton.disabled = true;
-        bookButton.style.backgroundColor = "#555"; // Warna abu-abu
+        bookButton.style.backgroundColor = "#555"; 
         bookButton.style.cursor = "not-allowed";
       } else {
         bookButton.addEventListener("click", () => {
           window.location.href = `../ToolBooking/index.html?tool=${encodeURIComponent(tool.name)}`;
         });
       }
-      // --- BATAS LOGIKA BARU ---
     });
   }
 
@@ -127,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!searchInput) return;
     const searchTerm = searchInput.value.toLowerCase();
     
-    // Ambil versi terbaru dari database setiap kali filter
     const currentToolsData = getToolsDatabase(); 
     
     const filteredTools = currentToolsData.filter(tool => {
@@ -139,7 +142,11 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         categoryMatch = tool.category === activeCategory;
       }
-      const searchMatch = tool.name.toLowerCase().includes(searchTerm);
+      
+      // Update filter agar mencari di deskripsi juga
+      const searchMatch = tool.name.toLowerCase().includes(searchTerm) || 
+                          (tool.description && tool.description.toLowerCase().includes(searchTerm));
+                          
       return categoryMatch && searchMatch;
     });
     renderTools(filteredTools);

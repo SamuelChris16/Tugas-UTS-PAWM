@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project - Metaverse Lab ITB</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+
+ <header class="navbar">
+  <div class="logo">
+    <img src="../assets/LogoLab.png" alt="Logo Metaverse Lab" />
+  </div>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="../Home/index.html">Home</a></li>
+      <li><a href="../Event/index.html">Event</a></li>
+      <li><a href="../Facility/index.html">Facility</a></li>
+      <li><a href="../Organization/index.html">Organization</a></li>
+      <li><a href="index.html" class="active">Project</a></li> </ul>
+  </nav>
+  <div class="nav-auth">
+    <a href="../Login/index.html" class="login-btn">LOGIN</a>
+    <a href="../Register/index.html" class="register-btn">REGISTER</a>
+    <a href="#" class="settings-btn"><i class="fa-solid fa-gear"></i></a>
+  </div>
+</header>
+
+  <main class="container">
+
+    <section class="search-section">
+      <div class="search-box">
+        <input type="text" placeholder="Search projects..." id="project-search" />
+        <button><i class="fa-solid fa-search"></i></button>
+      </div>
+    </section>
+
+    <section class="recommend-banner">
+      <h3>Featured Project: Virtual ITB Campus Tour</h3>
+    </section>
+
+    <section class="title-section">
+      <img src="../assets/rogaTERBANG.png" alt="Roga Flying Mascot" class="mascot-img" />
+      <h1>Let's Take a Look at Our Project!</h1>
+    </section>
+
+    <section class="project-grid" id="project-grid">
+
+      <div class="project-card">
+        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400');"></div>
+        <div class="card-body">
+          <h5>Virtual Campus Tour</h5>
+          <div class="description-box">
+            <p>Experience the ITB Ganesha campus in a fully immersive 3D environment. This project allows new students to explore facilities and landmarks from anywhere.</p>
+          </div>
+          <button class="btn-see-more">See More</button>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="card-img" style="background-image: url('https://plus.unsplash.com/premium_photo-1679865289381-3b7c28c866d6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400');"></div>
+        <div class="card-body">
+          <h5>Historical Site Reconstruction</h5>
+          <div class="description-box">
+            <p>A digital preservation project to rebuild the Borobudur Temple in its prime. Users can interact with historical artifacts and learn about the site's history in VR.</p>
+          </div>
+          <button class="btn-see-more">See More</button>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1579154204601-01588f351e67?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400');"></div>
+        <div class="card-body">
+          <h5>VR Medical Training Simulation</h5>
+          <div class="description-box">
+            <p>A collaborative project with the Faculty of Medicine. This simulation provides a risk-free environment for medical students to practice complex surgical procedures.</p>
+          </div>
+          <button class="btn-see-more">See More</button>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-15274302392E1-60a58WA480c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400');"></div>
+        <div class="card-body">
+          <h5>AI-Driven NPC Interaction</h5>
+          <div class="description-box">
+            <p>This project integrates advanced language models (LLMs) to create non-playable characters (NPCs) that can hold dynamic, unscripted conversations.</p>
+          </div>
+          <button class="btn-see-more">See More</button>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

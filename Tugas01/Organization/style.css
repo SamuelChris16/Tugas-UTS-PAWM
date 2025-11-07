@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display.swap');
+
+/* === VARIABLE WARNA (Copy dari Event/style.css) === */
+:root {
+  --color-bg: #1B162C;
+  --color-primary: #8A76C8; /* Ungu Primer */
+  --color-primary-light: #4A406D; /* Background Input */
+  --color-card-bg: #2A214D; /* Background Kartu */
+  --color-text: #FFFFFF;
+  --color-text-muted: #BFBFBF;
+}
+
+/* === RESET & BODY (Copy dari Event/style.css) === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
+/* === NAVBAR (Copy dari Event/style.css) === */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 60px;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-primary-light);
+}
+.logo img { width: 120px; }
+.nav-links { list-style: none; display: flex; gap: 30px; }
+.nav-links a { color: var(--color-text-muted); font-weight: 500; transition: 0.3s; padding-bottom: 5px; }
+.nav-links a:hover,
+.nav-links a.active { color: var(--color-text); font-weight: 600; border-bottom: 3px solid var(--color-primary); }
+.nav-auth { display: flex; align-items: center; gap: 15px; }
+.nav-auth .login-btn { color: var(--color-text); font-weight: 600; }
+.nav-auth .register-btn { background-color: var(--color-primary); padding: 10px 20px; border-radius: 30px; font-weight: 700; transition: 0.3s; }
+.nav-auth .register-btn:hover { background-color: #A998E0; }
+.nav-auth .settings-btn { font-size: 1.5rem; color: var(--color-text); }
+/* === BATAS NAVBAR === */
+
+
+/* === KONTEN UTAMA (BARU) === */
+.container {
+  width: 90%;
+  max-width: 1300px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* Judul Halaman */
+.container h1 {
+  font-size: 1.8rem; /* Konsisten dengan judul halaman lain */
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: var(--color-text);
+}
+
+/* === GRID TIM === */
+.team-grid {
+  display: grid;
+  /* 3 kolom di desktop */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.team-card {
+  /* Kartu sedikit transparan untuk efek "menarik" */
+  opacity: 0.9;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.team-card:hover {
+  opacity: 1;
+  transform: translateY(-5px); /* Efek mengangkat kartu */
+}
+
+.card-photo {
+  height: 380px; /* Sesuaikan tinggi foto */
+  /* Placeholder abu-abu dari UI/UX */
+  background-color: #D9D9D9; 
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 15px;
+  
+  /* Ini adalah border-radius unik dari UI/UX Anda */
+  border-radius: 60px 20px 60px 20px;
+  
+  transition: transform 0.3s ease;
+}
+
+.card-info h5 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 5px;
+}
+
+.card-info p {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+
+.card-socials {
+  display: flex;
+  gap: 18px; /* Jarak antar ikon */
+}
+
+.card-socials a {
+  /* Ikonnya saya buat warna muted agar tidak terlalu mencolok */
+  color: var(--color-text-muted); 
+  font-size: 1.3rem;
+  transition: 0.3s;
+}
+
+.card-socials a:hover {
+  color: var(--color-primary); /* Efek hover ungu */
+  transform: translateY(-3px);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 992px) {
+  /* Ubah jadi 2 kolom di tablet */
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar { padding: 10px 20px; }
+  /* (Asumsi kamu akan buat menu mobile nanti) */
+  /* .nav-links { display: none; } */
+
+  /* Ubah jadi 1 kolom di mobile */
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .card-photo {
+    height: 420px; /* Lebih tinggi di mobile */
+  }
+}

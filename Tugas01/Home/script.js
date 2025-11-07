@@ -1,31 +1,44 @@
-// Carousel looping logic
-function initCarousel(trackId, nextBtnId, visibleCount) {
-  const track = document.getElementById(trackId);
-  const nextBtn = document.getElementById(nextBtnId);
-  const cards = Array.from(track.children);
-  let index = 0;
+document.addEventListener("DOMContentLoaded", () => {
 
-  nextBtn.addEventListener("click", () => {
-    index += visibleCount;
-    if (index >= cards.length) index = 0;
-    const offset = -index * (cards[0].offsetWidth + 30);
-    track.style.transform = `translateX(${offset}px)`;
-    track.style.transition = "transform 0.6s ease";
+  // --- LOGIKA UNTUK KARTU EVENT (BARU) ---
+  // Membuat seluruh kartu event bisa diklik
+  document.querySelectorAll(".event-card").forEach(card => {
+    card.addEventListener("click", () => {
+      const eventName = card.dataset.eventName;
+      if (eventName) {
+        // Arahkan ke halaman EventDetail
+        window.location.href = `../EventDetail/index.html?event=${encodeURIComponent(eventName)}`;
+      }
+    });
   });
-}
 
-initCarousel("eventTrack", "eventNext", 2);
-initCarousel("toolsTrack", "toolsNext", 3);
+  // --- LOGIKA UNTUK TOMBOL TOOLS (Sama seperti sebelumnya) ---
 
-// Redirect buttons
-document.querySelectorAll(".register-btn-card").forEach(btn => {
-  btn.addEventListener("click", () => {
-    window.location.href = "../registernoew/registernoew.html";
+  // 1. Tombol "Details" Tools
+  document.querySelectorAll(".tool-detail").forEach(button => {
+    button.addEventListener("click", (e) => {
+      // Menghentikan event 'click' agar tidak 'bubble up' ke kartu
+      e.stopPropagation(); 
+      
+      const toolName = e.target.dataset.toolName;
+      if (toolName) {
+        // Arahkan ke halaman ToolDetail
+        window.location.href = `../ToolDetail/index.html?tool=${encodeURIComponent(toolName)}`;
+      }
+    });
   });
-});
 
-document.querySelectorAll(".book-btn-card").forEach(btn => {
-  btn.addEventListener("click", () => {
-    window.location.href = "../booknow/booknow.html";
+  // 2. Tombol "Book Now" Tools
+  document.querySelectorAll(".tool-book").forEach(button => {
+    button.addEventListener("click", (e) => {
+      // Menghentikan event 'click' agar tidak 'bubble up' ke kartu
+      e.stopPropagation(); 
+      
+      const toolName = e.target.dataset.toolName;
+      if (toolName) {
+        window.location.href = `../ToolBooking/index.html?tool=${encodeURIComponent(toolName)}`;
+      }
+    });
   });
+
 });

@@ -1,57 +1,144 @@
 document.addEventListener("DOMContentLoaded", () => {
   // === DATA SIMULASI (Database Event) ===
-  // Anda bisa tambahkan event sebanyak mungkin di sini
-  // Pastikan format tanggal YYYY-MM-DD
   const allEvents = [
     {
       name: "VR Development Workshop",
       date: "2025-11-15",
       location: "Aula Barat",
       category: "weekly",
-      img: "", // Biarkan kosong untuk placeholder abu-abu
+      img: "https://www.automationalley.com/wp-content/uploads/620c0d2e51cac31b68588bec_202202_04-AutomationAlley-Articles-VR.jpg",
+      tag: "Featured"
     },
     {
       name: "Intro to Metaverse",
       date: "2025-11-20",
       location: "Aula Timur",
       category: "monthly",
-      img: "",
+      img: "https://www.learntek.org/blog/wp-content/uploads/2021/11/Metaverse-Technology.png",
+      tag: "Coming Soon"
     },
     {
       name: "Guest Lecture: AI in XR",
       date: "2025-11-28",
       location: "Gedung STEI",
       category: "monthly",
-      img: "",
+      img: "https://media.licdn.com/dms/image/v2/D4D22AQGQarVRlx9X9A/feedshare-shrink_800/B4DZXJIcA.HIAg-/0/1742836197667?e=2147483647&v=beta&t=Sf7S8MifI7kbB7ProN5qRARmva--0BHLWt6QTWJwEP4",
     },
     {
       name: "Annual Tech Showcase",
       date: "2025-12-10",
       location: "Aula Barat",
       category: "yearly",
-      img: "",
+      img: "https://images.unsplash.com/photo-1540553016722-983e48a2cd10?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNTA5OHwwfDF8c2VhcmNofDV8fHRlY2glMjBjb25mZXJlbmNlfGVufDB8fHx8MTcyMDc0MjQ0N3ww&ixlib=rb-4.0.3&q=80&w=400",
+      tag: "Popular"
     },
     {
       name: "Weekly Dev Meetup",
       date: "2025-11-22",
       location: "Metaverse Lab",
       category: "weekly",
-      img: "",
+      img: "https://live.staticflickr.com/65535/48146091897_2b9194bf03_b.jpg",
     },
   ];
 
-  // === Elemen DOM ===
+  // === Elemen DOM (Filter) ===
   const eventGrid = document.getElementById("eventGrid");
   const searchInput = document.getElementById("searchInput");
   const dateFromInput = document.getElementById("dateFrom");
   const dateToInput = document.getElementById("dateTo");
   const categoryButtons = document.querySelectorAll(".category-btn");
+  let activeCategory = "all";
 
-  let activeCategory = "all"; // Kategori aktif saat ini
+  // === Elemen DOM (Carousel) ===
+  const recommendTrack = document.getElementById("recommendTrack");
+  const recommendPrev = document.getElementById("recommendPrev");
+  const recommendNext = document.getElementById("recommendNext");
+  const dotsContainer = document.getElementById("recommendDots");
+
+  // === FUNGSI UNTUK MERENDER KARTU REKOMENDASI ===
+  function renderRecommendEvents() {
+    if (!recommendTrack) return;
+    
+    const recommended = allEvents.filter(event => event.tag);
+    
+    recommendTrack.innerHTML = "";
+    if (dotsContainer) dotsContainer.innerHTML = "";
+
+    recommended.forEach((event, index) => {
+      const eventDate = new Date(event.date + 'T00:00:00');
+      const formattedDate = eventDate.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+
+      const card = document.createElement("div");
+      card.className = "recommend-card";
+      card.innerHTML = `
+        <div class="rec-card-img" style="background-image: url('${event.img}')">
+          <span class="rec-card-tag">${event.tag}</span>
+        </div>
+        <div class="rec-card-body">
+          <h5>${event.name}</h5>
+          <p>
+            <i class="fa-solid fa-calendar-day"></i>
+            ${formattedDate}
+          </p>
+        </div>
+      `;
+      recommendTrack.appendChild(card);
+
+      if (dotsContainer) {
+        const dot = document.createElement("button");
+        dot.className = "dot";
+        dot.setAttribute("data-index", index);
+        if (index === 0) dot.classList.add("active");
+        dotsContainer.appendChild(dot);
+      }
+    });
+  }
+
+  // === LOGIKA SLIDER REKOMENDASI ===
+  function setupCarousel() {
+    if (!recommendTrack || !dotsContainer) return;
+
+    const dots = Array.from(dotsContainer.children);
+    const cardWidth = 320; 
+    const cardGap = 20;    
+    const scrollAmount = cardWidth + cardGap;
+
+    recommendNext.addEventListener("click", () => {
+      recommendTrack.scrollLeft += scrollAmount;
+    });
+
+    recommendPrev.addEventListener("click", () => {
+      recommendTrack.scrollLeft -= scrollAmount;
+    });
+
+    dots.forEach(dot => {
+      dot.addEventListener("click", (e) => {
+        const index = parseInt(e.target.getAttribute("data-index"));
+        recommendTrack.scrollLeft = index * scrollAmount;
+      });
+    });
+
+    recommendTrack.addEventListener("scroll", () => {
+      const currentIndex = Math.round(recommendTrack.scrollLeft / scrollAmount);
+      
+      dots.forEach((dot, index) => {
+        if (index === currentIndex) {
+          dot.classList.add("active");
+        } else {
+          dot.classList.remove("active");
+        }
+      });
+    });
+  }
 
   // === FUNGSI UNTUK MERENDER EVENT KE LAYAR ===
   function renderEvents(events) {
-    eventGrid.innerHTML = ""; // Kosongkan grid
+    if (!eventGrid) return;
+    eventGrid.innerHTML = "";
 
     if (events.length === 0) {
       eventGrid.innerHTML = "<p>No events found matching your criteria.</p>";
@@ -62,14 +149,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = document.createElement("div");
       card.className = "event-card";
       
-      // Format tanggal ke format yang lebih cantik (e.g., 15 November 2025)
-      const eventDate = new Date(event.date + 'T00:00:00'); // Atasi timezone
+      const eventDate = new Date(event.date + 'T00:00:00');
       const formattedDate = eventDate.toLocaleDateString("en-US", {
         day: "numeric",
         month: "long",
         year: "numeric",
       });
 
+      // --- KODE HTML YANG SUDAH DIPERBAIKI (Tidak ada typo lagi) ---
       card.innerHTML = `
         <div class="card-img" ${event.img ? `style="background-image: url('${event.img}')"` : ''}></div>
         <div class="card-body">
@@ -84,6 +171,8 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
       `;
+      // --- BATAS PERBAIKAN ---
+      
       eventGrid.appendChild(card);
     });
   }
@@ -95,16 +184,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const dateTo = dateToInput.value;
 
     const filteredEvents = allEvents.filter(event => {
-      // 1. Filter Kategori
       const categoryMatch = activeCategory === "all" || event.category === activeCategory;
-
-      // 2. Filter Search Term (berdasarkan nama event)
       const searchMatch = event.name.toLowerCase().includes(searchTerm);
-
-      // 3. Filter Tanggal
-      const eventDate = new Date(event.date);
-      const fromDate = dateFrom ? new Date(dateFrom) : null;
-      const toDate = dateTo ? new Date(dateTo) : null;
+      const eventDate = new Date(event.date + 'T00:00:00');
+      const fromDate = dateFrom ? new Date(dateFrom + 'T00:00:00') : null;
+      const toDate = dateTo ? new Date(dateTo + 'T00:00:00') : null;
       
       let dateMatch = true;
       if (fromDate && toDate) {
@@ -115,34 +199,29 @@ document.addEventListener("DOMContentLoaded", () => {
         dateMatch = eventDate <= toDate;
       }
 
-      // Event harus lolos semua filter
       return categoryMatch && searchMatch && dateMatch;
     });
 
     renderEvents(filteredEvents);
   }
 
-  // === EVENT LISTENERS ===
-
-  // Listener untuk Kategori
+  // === EVENT LISTENERS (Filter) ===
   categoryButtons.forEach(button => {
     button.addEventListener("click", () => {
-      // Hapus kelas 'active' dari semua tombol
       categoryButtons.forEach(btn => btn.classList.remove("active"));
-      // Tambah kelas 'active' ke tombol yang diklik
       button.classList.add("active");
-      // Set kategori aktif
       activeCategory = button.getAttribute("data-category");
-      // Render ulang event
       filterEvents();
     });
   });
 
-  // Listener untuk semua input filter
-  searchInput.addEventListener("input", filterEvents);
-  dateFromInput.addEventListener("change", filterEvents);
-  dateToInput.addEventListener("change", filterEvents);
+  if (searchInput) searchInput.addEventListener("input", filterEvents);
+  if (dateFromInput) dateFromInput.addEventListener("change", filterEvents);
+  if (dateToInput) dateToInput.addEventListener("change", filterEvents);
 
-  // === TAMPILKAN SEMUA EVENT SAAT AWAL BUKA ===
+  // === INISIALISASI HALAMAN ===
   renderEvents(allEvents);
+  renderRecommendEvents();
+  setupCarousel();
+  
 });

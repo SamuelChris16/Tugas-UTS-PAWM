@@ -4,32 +4,41 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tool Details - Metaverse Lab ITB</title>
+
+  <!-- Style utama -->
   <link rel="stylesheet" href="style.css" />
+  <!-- Ikon FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-<<header class="navbar">
-  <div class="logo">
-    <img src="../assets/LogoLab.png" alt="Logo Metaverse Lab" />
-  </div>
-  <nav>
-    <ul class="nav-links">
-      <li><a href="../Home/index.html">Home</a></li>
-      <li><a href="../Event/index.html">Event</a></li>
-      <li><a href="../Facility/index.html" class="active">Facility</a></li> <li><a href="../Organization/index.html">Organization</a></li>
-      <li><a href="../Project/index.html">Project</a></li>
-    </ul>
-  </nav>
-  <div class="nav-auth">
-    <a href="../Login/index.html" class="login-btn">LOGIN</a>
-    <a href="../Register/index.html" class="register-btn">REGISTER</a>
-    <a href="#" class="settings-btn"><i class="fa-solid fa-gear"></i></a>
-  </div>
-</header>
+  <!-- ✅ Header Navbar -->
+  <header class="navbar">
+    <div class="logo">
+      <img src="../assets/LogoLab.png" alt="Logo Metaverse Lab" />
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="../Home/index.html">Home</a></li>
+        <li><a href="../Event/index.html">Event</a></li>
+        <li><a href="../Facility/index.html" class="active">Facility</a></li>
+        <li><a href="../Organization/index.html">Organization</a></li>
+        <li><a href="../Project/index.html">Project</a></li>
+      </ul>
+    </nav>
+    <div class="nav-auth">
+      <a href="../Login/index.html" class="login-btn">LOGIN</a>
+      <a href="../Register/index.html" class="register-btn">REGISTER</a>
+      <a href="#" class="settings-btn"><i class="fa-solid fa-gear"></i></a>
+    </div>
+  </header>
 
+  <!-- ✅ Main content -->
   <main class="detail-container">
     
+    <!-- Judul & tombol booking -->
     <section class="tool-title-bar">
       <h1 id="tool-name">Tool's Name</h1>
       <button class="book-now-btn">Book Now</button>
@@ -37,6 +46,7 @@
 
     <section class="tool-main-content">
       
+      <!-- Kolom kiri: deskripsi dan cara pakai -->
       <div class="tool-info-left">
         <div class="detail-box">
           <h3>Description</h3>
@@ -48,19 +58,28 @@
         </div>
       </div>
 
+      <!-- Kolom kanan: slider gambar -->
       <div class="tool-info-right">
         <div class="slider-container">
           <div class="slider-track" id="sliderTrack">
-            </div>
-          <button class="slider-arrow prev" id="slidePrev">&laquo;</button>
-          <button class="slider-arrow next" id="slideNext">&raquo;</button>
+            <!-- Gambar akan dimasukkan secara dinamis dari JS -->
+          </div>
+          <button class="slider-arrow prev" id="slidePrev">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button class="slider-arrow next" id="slideNext">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
           <div class="slider-dots" id="sliderDots">
-            </div>
+            <!-- Titik navigasi slider -->
+          </div>
         </div>
       </div>
 
     </section>
   </main>
+
+  <!-- ✅ Script utama -->
+  <script src="script.js"></script>
 </body>
-<script src="script.js"></script>
 </html>

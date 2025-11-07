@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
       date: "2025-11-22",
       location: "Metaverse Lab",
       category: "weekly",
-      img: "https://live.staticflickr.com/65535/48146091897_2b9194bf03_b.jpg",
+      img: "https://live.static[flickr.com/65535/48146091897_2b9194bf03_b.jpg](http://flickr.com/65535/48146091897_2b9194bf03_b.jpg)",
       description: "Our casual weekly gathering for all lab members and enthusiasts. Bring your projects, share your challenges, and collaborate. This week's focus: Real-time physics in VR. Free pizza and drinks!",
       speakers: [
         { name: "Budi Santoso", expertise: "Lab Assistant & Moderator", photo: "https://randomuser.me/api/portraits/men/75.jpg" }
@@ -152,6 +152,11 @@ document.addEventListener("DOMContentLoaded", () => {
         sponsorGrid.appendChild(card);
       });
     }
+    const registerBtn = document.querySelector(".register-now-btn");
+    
+    registerBtn.addEventListener("click", () => {
+      window.location.href = `../EventRegister/index.html?event=${encodeURIComponent(eventData.name)}`;
+    });
   }
 
   // Panggil fungsi utamanya

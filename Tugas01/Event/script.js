@@ -107,13 +107,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const cardGap = 20;    
     const scrollAmount = cardWidth + cardGap;
 
-    recommendNext.addEventListener("click", () => {
-      recommendTrack.scrollLeft += scrollAmount;
-    });
+    if (recommendNext) {
+      recommendNext.addEventListener("click", () => {
+        recommendTrack.scrollLeft += scrollAmount;
+      });
+    }
 
-    recommendPrev.addEventListener("click", () => {
-      recommendTrack.scrollLeft -= scrollAmount;
-    });
+    if (recommendPrev) {
+      recommendPrev.addEventListener("click", () => {
+        recommendTrack.scrollLeft -= scrollAmount;
+      });
+    }
 
     dots.forEach(dot => {
       dot.addEventListener("click", (e) => {
@@ -156,7 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
         year: "numeric",
       });
 
-      // --- KODE HTML YANG SUDAH DIPERBAIKI (Tidak ada typo lagi) ---
       card.innerHTML = `
         <div class="card-img" ${event.img ? `style="background-image: url('${event.img}')"` : ''}></div>
         <div class="card-body">
@@ -171,27 +174,28 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
       `;
-      // --- BATAS PERBAIKAN ---
       
       eventGrid.appendChild(card);
 
-      // ==========================================================
-      // === KODE TAMBAHAN SAYA ADA DI SINI ===
-      // ==========================================================
+      // 1. Ambil tombol Details
       const detailsButton = card.querySelector(".btn-details");
-      
       detailsButton.addEventListener("click", () => {
-        // Arahkan ke halaman detail, kirim nama event sebagai parameter URL
         window.location.href = `../EventDetail/index.html?event=${encodeURIComponent(event.name)}`;
       });
-      // ==========================================================
-      // === BATAS KODE TAMBAHAN ===
-      // ==========================================================
+
+      // 2. Ambil tombol Register (BARU)
+      const registerButton = card.querySelector(".btn-register");
+      registerButton.addEventListener("click", () => {
+        // Arahkan ke halaman registrasi baru
+        window.location.href = `../EventRegister/index.html?event=${encodeURIComponent(event.name)}`;
+      });
     });
   }
 
   // === FUNGSI UTAMA UNTUK FILTER ===
   function filterEvents() {
+    if (!searchInput || !dateFromInput || !dateToInput) return; // Guard clause
+    
     const searchTerm = searchInput.value.toLowerCase();
     const dateFrom = dateFromInput.value;
     const dateTo = dateToInput.value;

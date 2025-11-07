@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display.swap');
+
+/* === VARIABLE WARNA (dari style.css Event Anda) === */
+:root {
+  --color-bg: #1B162C;
+  --color-primary: #8A76C8; /* Ungu Primer */
+  --color-primary-light: #4A406D;
+  --color-card-bg: #2A214D;
+  --color-text: #FFFFFF;
+  --color-text-muted: #BFBFBF;
+  
+  /* Warna Baru dari Screenshot */
+  --form-bg: #3B2D6C; /* Ungu tua di dalam form */
+  --input-bg: #5A4B8C; /* Ungu lebih muda untuk input */
+  --glow-blue: #00F6FF; 
+}
+
+/* === RESET & BODY === */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+}
+
+/* === NAVBAR (Copy dari Event/style.css) === */
+.navbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 60px; background: var(--color-bg); border-bottom: 1px solid var(--color-primary-light); }
+.logo img { width: 120px; }
+.nav-links { list-style: none; display: flex; gap: 30px; }
+.nav-links a { color: var(--color-text-muted); font-weight: 500; transition: 0.3s; padding-bottom: 5px; text-decoration: none; }
+.nav-links a:hover,
+.nav-links a.active { color: var(--color-text); font-weight: 600; border-bottom: 3px solid var(--color-primary); }
+.nav-auth { display: flex; align-items: center; gap: 15px; }
+.nav-auth a { text-decoration: none; }
+.nav-auth .login-btn { color: var(--color-text); font-weight: 600; }
+.nav-auth .register-btn { background-color: var(--color-primary); padding: 10px 20px; border-radius: 30px; font-weight: 700; transition: 0.3s; color: var(--color-text); }
+.nav-auth .register-btn:hover { background-color: #A998E0; }
+.nav-auth .settings-btn { font-size: 1.5rem; color: var(--color-text); }
+/* === BATAS NAVBAR === */
+
+/* === FORM CONTAINER === */
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 30px 20px;
+}
+.register-container {
+  width: 100%;
+  max-width: 800px;
+}
+
+.register-container h1 {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 15px;
+  border-radius: 10px 10px 0 0;
+}
+
+/* === INI BAGIAN YANG DIPERBARUI === */
+.register-box {
+  background-color: var(--form-bg);
+  /* Baris border & box-shadow biru telah dihapus */
+  border-radius: 0 0 25px 25px;
+  padding: 30px 40px;
+}
+/* ================================= */
+
+/* Judul Pertanyaan Event */
+.register-box h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+}
+
+/* Tombol Radio */
+.radio-group {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 25px;
+}
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--color-text);
+}
+.radio-label input[type="radio"] {
+  display: none; /* Sembunyikan radio asli */
+}
+.radio-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-text-muted);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+.radio-custom::after { /* Lingkaran dalam */
+  content: '';
+  width: 10px;
+  height: 10px;
+  background-color: var(--glow-blue);
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 0.2s;
+}
+.radio-label input[type="radio"]:checked + .radio-custom {
+  border-color: var(--glow-blue);
+}
+.radio-label input[type="radio"]:checked + .radio-custom::after {
+  transform: scale(1);
+}
+
+/* Grup Form */
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+}
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="number"] {
+  width: 100%;
+  background-color: var(--input-bg);
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 1rem;
+  color: var(--color-text);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Baris Form (Nama Depan/Belakang) */
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+.form-col {
+  flex: 1;
+}
+.form-col small {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Tombol Submit */
+.btn-submit {
+  display: block;
+  margin: 30px auto 0 auto;
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  border: none;
+  border-radius: 30px;
+  padding: 12px 45px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn-submit:hover {
+  background-color: #A998E0;
+}

@@ -5,14 +5,48 @@ const SUPABASE_ANON_KEY =
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const client = supabase; 
 
+// === FUNGSI UNIVERSAL CEK & TAMPILKAN STATUS LOGIN UNTUK NAVBAR ===
+function checkLoginStatus(loggedInUser) {
+  const loginBtn = document.getElementById("loginBtn");
+  const registerBtn = document.getElementById("registerBtn");
+  const userProfileContainer = document.getElementById("userProfileContainer");
+  const userNameDisplay = document.getElementById("userNameDisplay");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  if (loggedInUser) {
+    if (loginBtn) loginBtn.style.display = 'none';
+    if (registerBtn) registerBtn.style.display = 'none';
+    if (userProfileContainer) userProfileContainer.classList.remove('hidden');
+    if (userNameDisplay) userNameDisplay.textContent = loggedInUser.username;
+    
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem("loggedInUser");
+        alert("Anda telah berhasil keluar (Logout).");
+        window.location.href = "../Home/index.html"; 
+      });
+    }
+  } else {
+    // Jika user tiba-tiba logout (walaupun harusnya tidak terjadi di halaman ini), pastikan tampilan benar
+    if (loginBtn) loginBtn.style.display = 'block';
+    if (registerBtn) registerBtn.style.display = 'block';
+    if (userProfileContainer) userProfileContainer.classList.add('hidden');
+  }
+}
+// === BATAS FUNGSI NAVBAR ===
+
 document.addEventListener("DOMContentLoaded", async () => {
-  // === 1. FUNGSI PROTEKSI LOGIN ===
+  // === 1. BLOK PROTEKSI LOGIN (DIPASTIKAN DI PALING ATAS) ===
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
   if (!loggedInUser) {
     alert("Anda harus login untuk mengakses formulir booking alat.");
     window.location.href = "../Login/index.html";
     return;
   }
+  // Panggil fungsi navbar setelah memastikan user login
+  checkLoginStatus(loggedInUser);
+  // === AKHIR BLOK PROTEKSI LOGIN ===
 
   // === 2. AMBIL ELEMEN & PARAMETER URL ===
   const bookingForm = document.getElementById("bookingForm");
@@ -21,8 +55,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const fileNameDisplay = document.getElementById("file-name-display");
 
   const params = new URLSearchParams(window.location.search);
-  const toolId = params.get("id"); // ID dari ToolDetail
-  const toolName = params.get("tool"); // Nama dari Facility/Home
+  const toolId = params.get("id");
+  const toolName = params.get("tool");
 
   if (!toolName) {
     alert("No tool selected. Please choose a tool first.");
@@ -34,7 +68,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   bookingHeader.textContent = `${toolName}'s Booking`;
 
   let toolData = null;
-  let toolIdToUse = null; // Variabel yang akan menyimpan ID yang benar
+  let toolIdToUse = null;
 
   try {
     // Cari data alat di Supabase
@@ -44,10 +78,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       .maybeSingle();
 
     if (toolId) {
-      // Prioritas: cari berdasarkan ID
       query = query.eq("id_tools", toolId);
     } else {
-      // Fallback: cari berdasarkan Nama
       query = query.eq("name", toolName);
     }
 
@@ -57,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!data) throw new Error("Tool data not found.");
 
     toolData = data;
-    toolIdToUse = data.id_tools; // Simpan ID yang benar untuk digunakan di submit handler
+    toolIdToUse = data.id_tools;
 
     if (toolData.quantity === 0) {
       alert(`The tool '${toolName}' is currently unavailable (quantity: 0).`);
@@ -80,11 +112,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // === 4. SUBMIT HANDLER (Bagian Kritis yang Diperkuat) ===
+  // === 4. SUBMIT HANDLER ===
   bookingForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Ambil data dari form
     const first_name = document.getElementById("first-name").value.trim();
     const last_name = document.getElementById("last-name").value.trim();
     const email = document.getElementById("email").value.trim();
@@ -93,7 +124,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const phone = document.getElementById("phone").value.trim();
     const pdfFile = document.getElementById("file-upload").files[0];
 
-    // Validasi
     if (!toolIdToUse || toolData.quantity <= 0) {
         alert("Booking failed: Tool ID is missing or tool is unavailable.");
         window.location.href = "../Facility/index.html";
@@ -106,7 +136,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     
     try {
-      // === 1) Upload PDF ke Supabase Storage ===
+      // 1) Upload PDF ke Supabase Storage
       const filePath = `${toolIdToUse}/${Date.now()}_${pdfFile.name}`;
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from("borrow-pdfs")
@@ -124,12 +154,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         .getPublicUrl(filePath);
       const pdf_url = publicUrlData.publicUrl;
 
-      // === 2) Simpan data ke tabel borrow_requests (Bagian yang harus berhasil) ===
+      // 2) Simpan data ke tabel borrow_requests
       const { data: insertData, error: insertError } = await supabase
         .from("borrow_requests")
         .insert([
           {
-            id_tools: toolIdToUse, // Menggunakan ID yang sudah divalidasi
+            id_tools: toolIdToUse,
             first_name,
             last_name,
             email,
@@ -143,23 +173,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         .select();
 
       if (insertError) {
-        // Tampilkan error Supabase jika gagal insert
         console.error("Insert Error:", insertError);
         alert("Error saving booking. Check console for details. Error: " + insertError.message);
         return;
       }
 
-      // === 3) Kurangi stok alat di tabel tools ===
+      // 3) Kurangi stok alat di tabel tools
       const newQuantity = Math.max(toolData.quantity - 1, 0);
       const { error: updateError } = await supabase
         .from("tools")
         .update({ quantity: newQuantity })
-        .eq("id_tools", toolIdToUse); // Menggunakan ID yang sudah divalidasi
+        .eq("id_tools", toolIdToUse);
 
       if (updateError) {
         console.error("Update Error:", updateError);
         alert("Booking saved but failed to update stock. Please inform the admin.");
-        // Lanjutkan redirect meski update stock gagal (karena data booking sudah masuk)
       }
 
       alert(`Booking for ${toolData.name} successful!`);

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // === BLOK PROTEKSI LOGIN ===
+  // === BLOK PROTEKSI LOGIN (DIPASTIKAN DI PALING ATAS) ===
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
   if (!loggedInUser) {
     alert("Anda harus login untuk mengakses formulir pendaftaran event.");
@@ -8,20 +8,34 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   // === AKHIR BLOK PROTEKSI LOGIN ===
   
-  // Sisa kode asli EventRegister/script.js di sini (sudah dimodifikasi dari jawaban sebelumnya)
-  // ...
-});
+  // === FUNGSI UNIVERSAL CEK & TAMPILKAN STATUS LOGIN UNTUK NAVBAR ===
+  // (Tambahkan fungsi ini untuk memastikan Navbar berfungsi setelah login)
+  function checkLoginStatus() {
+    const loginBtn = document.getElementById("loginBtn");
+    const registerBtn = document.getElementById("registerBtn");
+    const userProfileContainer = document.getElementById("userProfileContainer");
+    const userNameDisplay = document.getElementById("userNameDisplay");
+    const logoutBtn = document.getElementById("logoutBtn");
 
-document.addEventListener("DOMContentLoaded", () => {
-  // === FUNGSI PROTEKSI LOGIN (HARUS ADA DI PALING ATAS) ===
-  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-  if (!loggedInUser) {
-    alert("Anda harus login untuk mengakses formulir pendaftaran event.");
-    window.location.href = "../Login/index.html";
-    return; // Hentikan eksekusi script jika belum login
+    if (loggedInUser) {
+      if (loginBtn) loginBtn.style.display = 'none';
+      if (registerBtn) registerBtn.style.display = 'none';
+      if (userProfileContainer) userProfileContainer.classList.remove('hidden');
+      if (userNameDisplay) userNameDisplay.textContent = loggedInUser.username;
+      
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          localStorage.removeItem("loggedInUser");
+          alert("Anda telah berhasil keluar (Logout).");
+          window.location.href = "../Home/index.html"; 
+        });
+      }
+    }
   }
-  // === BATAS PROTEKSI LOGIN ===
-  
+  checkLoginStatus();
+  // === BATAS FUNGSI NAVBAR ===
+
   const eventQuestion = document.getElementById("event-question");
   const registerForm = document.getElementById("registerForm");
 
@@ -40,7 +54,12 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     // Ambil semua data dari form
-    const attending = document.querySelector('input[name="attending"]:checked').value;
+    const attendingEl = document.querySelector('input[name="attending"]:checked');
+    if (!attendingEl) {
+        alert("Please select 'Yes' or 'No'.");
+        return;
+    }
+    const attending = attendingEl.value;
     const firstName = document.getElementById("first-name").value;
     const lastName = document.getElementById("last-name").value;
     const email = document.getElementById("email").value;
@@ -61,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
       email,
       phone,
       guests,
-      username: loggedInUser.username, // Tambahkan username dari loggedInUser
+      username: loggedInUser.username, 
       timestamp: new Date().toISOString()
     };
 
